@@ -12,6 +12,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.shape.Circle;
 import ruben.eduardo.knn.models.Cotizacion;
 
 import java.net.URL;
@@ -30,31 +31,67 @@ public class HelloController  {
 
 
     public void addRandomDataToChart() {
-        Random random = new Random();
+        // Datos de ejemplo, reemplaza esto con tus datos reales
+        double[][] datosComprar = {
+                {4407489,65,1.20},
+                {1297060,75,1.50},
+                {1131490,70,0.85},
+                {2000000,62,1.00},
 
-        // Crear la primera serie de datos y agregar datos aleatorios
+        };
+
+        double[][] datosMantener = {
+                {2537623,60,-0.30},
+
+        };
+
+        double[][] datosVender = {
+                {1860866,55,-0.75},
+                {3000000,64,1.10},
+
+        };
+
+        // ... datos para "Vender" ...
+
+        // Crear la primera serie de datos y agregar tus datos
         XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
-        series1.setName("Comprar"); // Opcional: establecer un nombre para la leyenda
-        for (int i = 0; i < 5; i++) {
-            series1.getData().add(new XYChart.Data<>(random.nextDouble() * 100, random.nextDouble() * 100));
+        series1.setName("Comprar");
+        for (double[] dato : datosComprar) {
+            XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(dato[1], dato[2]);
+            Circle circle = new Circle();
+            circle.setRadius(dato[0] * 0.000005); // Ajusta el factor de escala según sea necesario
+            dataPoint.setNode(circle);
+            series1.getData().add(dataPoint);
         }
 
-        // Crear la segunda serie de datos y agregar datos aleatorios
+        // Crear la segunda serie de datos y agregar tus datos
         XYChart.Series<Number, Number> series2 = new XYChart.Series<>();
         series2.setName("Mantener");
-        for (int i = 0; i < 5; i++) {
-            series2.getData().add(new XYChart.Data<>(random.nextDouble() * 100, random.nextDouble() * 100));
+        for (double[] dato : datosMantener) {
+            XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(dato[1], dato[2]);
+            Circle circle = new Circle();
+            circle.setRadius(dato[0] * 0.000005); // Ajusta el factor de escala según sea necesario
+            dataPoint.setNode(circle);
+            series2.getData().add(dataPoint);
         }
 
-        // Crear la tercera serie de datos y agregar datos aleatorios
+        // Crear la segunda serie de datos y agregar tus datos
         XYChart.Series<Number, Number> series3 = new XYChart.Series<>();
         series3.setName("Vender");
-        for (int i = 0; i < 5; i++) {
-            series3.getData().add(new XYChart.Data<>(random.nextDouble() * 100, random.nextDouble() * 100));
+        for (double[] dato : datosVender) {
+            XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(dato[1], dato[2]);
+            Circle circle = new Circle();
+            circle.setRadius(dato[0] * 0.000005); // Ajusta el factor de escala según sea necesario
+            dataPoint.setNode(circle);
+            series3.getData().add(dataPoint);
         }
 
+
+
+        // Repetir para la serie "Vender"
+
         // Añadir las series al gráfico
-        scatterChart.getData().addAll(series1, series2, series3);
+        scatterChart.getData().addAll(series1, series2,series3);
     }
 
     public void initialize() {
