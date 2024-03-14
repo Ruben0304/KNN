@@ -1,0 +1,11 @@
+.chart-series-scatter .series0 .chart-symbol {
+    -fx-background-color: #FF0000, white; /* Rojo con borde blanco */
+}
+
+.chart-series-scatter .series1 .chart-symbol {
+    -fx-background-color: #00FF00, white; /* Verde con borde blanco */
+}
+
+.chart-series-scatter .series2 .chart-symbol {
+    -fx-background-color: #0000FF, white; /* Azul con borde blanco */
+}
