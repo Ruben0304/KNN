@@ -12,6 +12,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import ruben.eduardo.knn.models.Cotizacion;
 
@@ -60,6 +61,7 @@ public class HelloController  {
             XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(dato[1], dato[2]);
             Circle circle = new Circle();
             circle.setRadius(dato[0] * 0.000005); // Ajusta el factor de escala según sea necesario
+            circle.setFill(Color.GREEN);
             dataPoint.setNode(circle);
             series1.getData().add(dataPoint);
         }
@@ -71,6 +73,7 @@ public class HelloController  {
             XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(dato[1], dato[2]);
             Circle circle = new Circle();
             circle.setRadius(dato[0] * 0.000005); // Ajusta el factor de escala según sea necesario
+            circle.setFill(Color.ORANGE);
             dataPoint.setNode(circle);
             series2.getData().add(dataPoint);
         }
@@ -82,15 +85,11 @@ public class HelloController  {
             XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(dato[1], dato[2]);
             Circle circle = new Circle();
             circle.setRadius(dato[0] * 0.000005); // Ajusta el factor de escala según sea necesario
+            circle.setFill(Color.RED);
             dataPoint.setNode(circle);
             series3.getData().add(dataPoint);
         }
 
-
-
-        // Repetir para la serie "Vender"
-
-        // Añadir las series al gráfico
         scatterChart.getData().addAll(series1, series2,series3);
     }
 
