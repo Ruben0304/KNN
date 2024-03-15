@@ -9,21 +9,28 @@ import java.util.Map;
 
 public class SistemaBolsa implements AnalizadorKNN {
 
+    private static int k;
 
-    LinkedList<HashMap<Accion,Double>> redAcciones;
-
-    public SistemaBolsa() {
-        this.redAcciones = new LinkedList<HashMap<Accion,Double>>();
-    }
-
-    public LinkedList<HashMap<Accion, Double>> getRedAcciones() {
-        return redAcciones;
+    public static void setK(int k) {
+        if (k % 2 != 0 && k<10) {
+            SistemaBolsa.k = k;
+        } else {
+            throw new IllegalArgumentException("Este valor debe ser pequeño e impar");
+        }
     }
 
     @Override
-    public double calcularKNN (Accion a, int valor ){
-        return 0.0;
+    public double calcularKNN(Accion a) {
+
+
     }
 
+    @Override
+    public Clasificacion clasificarAccion(Accion a) {
+        List<Map.Entry<Clasificacion, Double>> listaVecinos = new LinkedList<>();
 
+        return null;
+    }
 }
+
+
