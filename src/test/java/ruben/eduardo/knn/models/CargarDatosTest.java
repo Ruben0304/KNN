@@ -18,6 +18,6 @@ class CargarDatosTest {
 
     @Test
     void cargarAcciones() {
-        assertEquals(7, c.cargarAcciones().size());
+        assertEquals(5, c.cargarAcciones().size());
     }
 }

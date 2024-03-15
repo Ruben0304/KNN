@@ -40,7 +40,7 @@ public class CargarDatos implements Cargador {
     @Override
     public List<Accion> cargarAcciones() {
         List<Accion> listaAcciones = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(CargarDatos.class.getResource("Data/acciones.csv").toString()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("D:/Proyectos/Java/Escuela/KNN/src/main/resources/ruben/eduardo/knn/Data/acciones.csv"))) {
             String linea;
             br.readLine(); // Esto es para saltar la línea del encabezado
             while ((linea = br.readLine()) != null) {
