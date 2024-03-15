@@ -1,7 +1,10 @@
-package ruben.eduardo.knn.models;
+package ruben.eduardo.knn;
 
-import ruben.eduardo.knn.Main;
 import ruben.eduardo.knn.interfaces.Cargador;
+
+import ruben.eduardo.knn.models.Accion;
+import ruben.eduardo.knn.models.Clasificacion;
+import ruben.eduardo.knn.models.Indicador;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -28,7 +31,7 @@ public class CargarDatos implements Cargador {
 
 
                 // Crear una nueva instancia de Accion y añadirla a la lista
-                Indicador i  = new Indicador(volumen,rsi,macd,Clasificacion.valueOf(clasificacion));
+                Indicador i  = new Indicador(volumen,rsi,macd, Clasificacion.valueOf(clasificacion));
                 listaIndicadores.add(i);
             }
         } catch (IOException e) {
@@ -38,8 +41,8 @@ public class CargarDatos implements Cargador {
     }
 
     @Override
-    public List<Accion> cargarAcciones() {
-        List<Accion> listaAcciones = new ArrayList<>();
+    public ArrayList<Accion> cargarAcciones() {
+        ArrayList<Accion> listaAcciones = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader("D:/Proyectos/Java/Escuela/KNN/src/main/resources/ruben/eduardo/knn/Data/acciones.csv"))) {
             String linea;
             br.readLine(); // Esto es para saltar la línea del encabezado

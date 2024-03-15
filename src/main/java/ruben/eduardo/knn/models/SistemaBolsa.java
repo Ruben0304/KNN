@@ -4,8 +4,12 @@ import ruben.eduardo.knn.interfaces.AnalizadorKNN;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class SistemaBolsa implements AnalizadorKNN {
+
+
     LinkedList<HashMap<Accion,Double>> redAcciones;
 
     public SistemaBolsa() {
