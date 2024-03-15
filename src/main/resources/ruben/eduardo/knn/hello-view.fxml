@@ -8,13 +8,13 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<Pane fx:id="root" maxHeight="-Infinity" maxWidth="1521.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1047.0" style="-fx-background-color: #0B0B0C;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ruben.eduardo.knn.HelloController">
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="1521.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1047.0" style="-fx-background-color: #0B0B0C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ruben.eduardo.knn.HelloController">
    <children>
       <Pane layoutX="509.0" layoutY="76.0" prefHeight="227.0" prefWidth="469.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
          <children>
@@ -27,12 +27,6 @@
             <Button layoutX="354.0" layoutY="166.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="93.0" styleClass="accent" text="Agregar" />
          </children>
       </Pane>
-      <TableView fx:id="tablaCotizaciones" layoutX="63.0" layoutY="76.0" prefHeight="463.0" prefWidth="435.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
-
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
       <Pane layoutX="63.0" layoutY="549.0" prefHeight="154.0" prefWidth="435.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
          <children>
             <Label layoutX="168.0" layoutY="30.0" prefHeight="20.0" prefWidth="102.0" text="Opciones" />
@@ -72,6 +66,73 @@
             <Circle fill="#d18644" layoutX="192.0" layoutY="358.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
             <Circle fill="#37a435" layoutX="57.0" layoutY="358.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
             <Circle fill="#bf3921" layoutX="325.0" layoutY="357.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+         </children>
+      </Pane>
+      <Pane layoutX="63.0" layoutY="79.0" prefHeight="461.0" prefWidth="435.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
+         <children>
+            <Label layoutX="100.0" layoutY="30.0" prefHeight="20.0" prefWidth="54.0" text="Índice" />
+            <Label layoutX="191.0" layoutY="30.0" prefHeight="20.0" prefWidth="54.0" text="Precio" />
+            <Label layoutX="285.0" layoutY="30.0" prefHeight="20.0" prefWidth="123.0" text="Recomendación ML" />
+            <Pane layoutX="15.0" layoutY="64.0" prefHeight="54.0" prefWidth="393.0">
+               <children>
+                  <Label layoutX="88.0" layoutY="17.0" prefHeight="20.0" prefWidth="54.0" text="AAPL" />
+                  <Label layoutX="175.0" layoutY="17.0" prefHeight="20.0" prefWidth="44.0" text="174.60" />
+                  <Label alignment="CENTER" layoutX="286.0" layoutY="17.0" prefHeight="20.0" prefWidth="93.0" styleClass="success" text="Comprar" textAlignment="CENTER" textFill="#d93e3e" />
+                  <ImageView fitHeight="31.0" fitWidth="25.0" layoutX="26.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/Apple%20Logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="15.0" layoutY="140.0" prefHeight="54.0" prefWidth="393.0">
+               <children>
+                  <Label layoutX="88.0" layoutY="17.0" prefHeight="20.0" prefWidth="54.0" text="BTC" />
+                  <Label layoutX="175.0" layoutY="17.0" prefHeight="20.0" prefWidth="60.0" text="72131.5" />
+                  <Label alignment="CENTER" layoutX="286.0" layoutY="17.0" prefHeight="20.0" prefWidth="93.0" styleClass="danger" text="Vender" textAlignment="CENTER" textFill="#d93e3e" />
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="22.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/Bitcoin.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="15.0" layoutY="222.0" prefHeight="54.0" prefWidth="393.0">
+               <children>
+                  <Label layoutX="88.0" layoutY="17.0" prefHeight="20.0" prefWidth="54.0" text="NFLX" />
+                  <Label layoutX="175.0" layoutY="17.0" prefHeight="20.0" prefWidth="44.0" text="174.60" />
+                  <Label alignment="CENTER" layoutX="286.0" layoutY="17.0" prefHeight="20.0" prefWidth="93.0" styleClass="success" text="Comprar" textAlignment="CENTER" textFill="#d93e3e" />
+                  <ImageView fitHeight="34.0" fitWidth="44.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/Netflix.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="15.0" layoutY="305.0" prefHeight="54.0" prefWidth="393.0">
+               <children>
+                  <Label layoutX="88.0" layoutY="17.0" prefHeight="20.0" prefWidth="54.0" text="AMZN" />
+                  <Label layoutX="175.0" layoutY="17.0" prefHeight="20.0" prefWidth="44.0" text="174.60" />
+                  <Label alignment="CENTER" layoutX="286.0" layoutY="17.0" prefHeight="20.0" prefWidth="93.0" styleClass="warning" text="Mantener" textAlignment="CENTER" textFill="#d93e3e" />
+                  <ImageView fitHeight="31.0" fitWidth="25.0" layoutX="21.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/Amazon%20Shopping%20App.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="15.0" layoutY="385.0" prefHeight="54.0" prefWidth="393.0">
+               <children>
+                  <Label layoutX="88.0" layoutY="17.0" prefHeight="20.0" prefWidth="54.0" text="TSLA" />
+                  <Label layoutX="175.0" layoutY="17.0" prefHeight="20.0" prefWidth="44.0" text="174.60" />
+                  <Label alignment="CENTER" layoutX="286.0" layoutY="17.0" prefHeight="20.0" prefWidth="93.0" styleClass="danger" text="Vender" textAlignment="CENTER" textFill="#d93e3e" />
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/Tesla.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>
