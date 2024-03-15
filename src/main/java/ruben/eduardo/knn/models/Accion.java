@@ -6,6 +6,12 @@ public class Accion {
 
     private Indicador indicador;
 
+    public Accion(String nombre, Double precio, Indicador indicador) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.indicador = indicador;
+    }
+
     public String getNombre() {
         return nombre;
     }
