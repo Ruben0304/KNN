@@ -14,4 +14,6 @@ public interface AnalizadorKNN {
     List<Map.Entry<Clasificacion, Double>> obtenerVecinos(Accion a);
     Clasificacion clasificarAccion(Accion a);
 
+
+
 }

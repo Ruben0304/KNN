@@ -2,6 +2,9 @@ package ruben.eduardo.knn.models;
 
 import ruben.eduardo.knn.interfaces.AnalizadorKNN;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.*;
 
 public class AnalistaFinanciero implements AnalizadorKNN {
@@ -95,6 +98,30 @@ public class AnalistaFinanciero implements AnalizadorKNN {
         rsiRange = maxRSI - minRSI;
         macdRange = maxMACD - minMACD;
     }
+
+
+    public double[][] generarMatrizDistancia() {
+        int n = Bolsa.getIndicadores().size();
+        double[][] matrizDistancia = new double[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                double distancia = calcularDistancia(Bolsa.getIndicadores().get(i), Bolsa.getIndicadores().get(j));
+                matrizDistancia[i][j] = distancia;
+                matrizDistancia[j][i] = distancia;
+            }
+        }
+
+        return matrizDistancia;
+    }
+
+    public static void escribirMatrizEnFichero(double[][] matriz, String nombreFichero)
+            throws IOException {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(nombreFichero))) {
+            oos.writeObject(matriz);
+        }
+    }
+
 }
 
 

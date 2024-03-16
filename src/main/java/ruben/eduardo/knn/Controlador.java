@@ -17,9 +17,6 @@ public class Controlador {
     @FXML
     private ScatterChart<Number, Number> scatterChart;
 
-    @FXML
-    private TableView<Cotizacion> tablaCotizaciones;
-
 
     public void addRandomDataToChart() {
 
