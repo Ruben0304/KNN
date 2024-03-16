@@ -1,7 +1,7 @@
 package ruben.eduardo.knn.models;
 
 public class Indicador {
-    public final double VOLUMEN;
+    public final double Momentum;
 
     public final double RSI;
 
@@ -9,8 +9,8 @@ public class Indicador {
 
     private Clasificacion clasificacion;
 
-    public Indicador(double VOLUMEN, double RSI, double MACD, Clasificacion clasificacion) {
-        this.VOLUMEN = VOLUMEN;
+    public Indicador(double momentum, double RSI, double MACD, Clasificacion clasificacion) {
+        this.Momentum = momentum;
         this.RSI = RSI;
         this.MACD = MACD;
         this.clasificacion = clasificacion;

@@ -21,7 +21,7 @@ public class Bolsa {
         return acciones;
     }
 
-    public static List<Indicador> getIndicadores() {
+    public static LinkedList<Indicador> getIndicadores() {
         return indicadores;
     }
 

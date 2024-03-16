@@ -1,46 +1,41 @@
-Volumen,RSI,MACD,Clasificacion
-4407489, 65, 1.2,Comprar
-1297060, 75, 1.5,Comprar
-1131490, 50, 0.85,Comprar
-2000000, 62, 1.00,Comprar
-3500000, 70, 1.25,Comprar
-2750000, 68, 1.10,Comprar
-3250000, 72, 1.40,Comprar
-1500000, 63, 1.05,Comprar
-1750000, 67, 1.15,Comprar
-2250000, 69, 1.30,Comprar
-3800000, 71, 1.35,Comprar
-4000000, 74, 1.45,Comprar
-4200000, 76, 1.55,Comprar
-4500000, 78, 1.65,Comprar
-4700000, 80, 1.75,Comprar
-5537623, 60, -0.30,Mantener
-2137890, 60, 0.10,Mantener
-4500000, 55, -0.05,Mantener
-5600000, 58, 0.00,Mantener
-4400000, 57, -0.10,Mantener
-2300000, 59, 0.05,Mantener
-5200000, 56, -0.20,Mantener
-4100000, 54, -0.15,Mantener
-5700000, 53, 0.20,Mantener
-2800000, 52, 0.25,Mantener
-1900000, 51, 0.30,Mantener
-4100000, 50, 0.35,Mantener
-6100000, 49, 0.40,Mantener
-5200000, 48, 0.45,Mantener
-3300000, 47, 0.50,Mantener
-1860866, 30, -0.75,Vender
-1260866, 20, -0.65,Vender
-3000000, 25, 1.10,Vender
-3100000, 35, -0.80,Vender
-2200000, 40, -0.85,Vender
-1300000, 45, -0.90,Vender
-3400000, 50, -0.95,Vender
-3500000, 55, -1.00,Vender
-1600000, 28, -0.70,Vender
-3700000, 22, -0.60,Vender
-2800000, 18, -0.55,Vender
-3900000, 16, -0.50,Vender
-2000000, 14, -0.45,Vender
-4100000, 12, -0.40,Vender
-4200000, 10, -0.3,Vender
+Momentum,RSI,MACD,Clasificación
+2.5,65,1.2,Comprar
+-2.8,75,-0.5,Vender
+1.7,50,0.85,Comprar
+0.1,62,1.00,Mantener
+-0.4,70,0.25,Mantener
+2.1,68,1.10,Comprar
+-3.0,72,-1.40,Vender
+0.5,63,1.05,Mantener
+1.9,67,1.15,Comprar
+-1.2,71,-0.35,Vender
+2.6,74,1.45,Comprar
+-2.4,76,-1.55,Vender
+1.0,78,1.65,Comprar
+-1.8,80,-1.75,Vender
+0.2,60,-0.30,Mantener
+2.3,59,0.90,Comprar
+-2.1,77,-0.80,Vender
+1.5,69,1.30,Comprar
+-0.2,73,0.20,Mantener
+2.7,64,1.50,Comprar
+-2.9,79,-1.60,Vender
+1.8,66,1.00,Comprar
+-1.0,81,-0.40,Vender
+0.3,61,0.95,Mantener
+2.4,58,1.40,Comprar
+-2.2,82,-1.70,Vender
+1.6,54,1.20,Comprar
+-0.1,83,0.10,Mantener
+2.8,53,1.60,Comprar
+-2.5,84,-1.80,Vender
+1.2,52,1.10,Comprar
+-0.3,85,-0.20,Mantener
+2.9,51,1.70,Comprar
+-2.6,86,-1.90,Vender
+1.3,49,1.30,Comprar
+-0.5,87,-0.10,Mantener
+3.0,48,1.80,Comprar
+-2.7,88,-2.00,Vender
+1.4,47,1.40,Comprar
+-0.6,89,-0.05,Mantener

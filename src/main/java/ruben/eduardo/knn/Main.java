@@ -6,19 +6,23 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import ruben.eduardo.knn.interfaces.Cargador;
+import ruben.eduardo.knn.models.Bolsa;
 
 import java.io.IOException;
 
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        Cargador c = new CargarDatos();
+        Bolsa b = new Bolsa(c);
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("KNN");
 
         scene.getStylesheets().add(Main.class.getResource("assets/cupertino-dark.css").toString());
         scene.getStylesheets().add(Main.class.getResource("assets/Personalizado.css").toString());
-        HelloController controller = fxmlLoader.getController();
+        Controlador controller = fxmlLoader.getController();
         controller.addRandomDataToChart();
 
         stage.setScene(scene);
