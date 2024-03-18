@@ -19,4 +19,12 @@ class ClasificadorTest {
         clasificador.calcularRangoDeDatos(registro.getElementos().keySet()).forEach(System.out::println);
         assertTrue(true);
     }
+
+    @Test
+    void calcularDistancia() {
+
+    assertEquals(0.0,clasificador.calcularDistancia(registro.getElementos().keySet().iterator().next(),registro.getElementos().keySet().iterator().next(),clasificador.calcularRangoDeDatos(registro.getElementos().keySet())));
+
+
+    }
 }
