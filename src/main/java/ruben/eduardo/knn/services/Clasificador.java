@@ -28,7 +28,8 @@ public class Clasificador implements AnalizadorKNN, IClasificador {
 
         int numColumnas = datosClasificados.iterator().next().size();
 
-        // Calcular el rango para cada columna
+        // 🥵🥵🥵
+
         for (int i = 0; i < numColumnas; i++) {
             int columna = i;
 
@@ -50,10 +51,20 @@ public class Clasificador implements AnalizadorKNN, IClasificador {
     }
 
     @Override
-    public double calcularDistancia(LinkedList<Double> noClasificado, LinkedList<Double> clasificado) {
+    public double calcularDistancia(@NotNull LinkedList<Double> noClasificado, @NotNull LinkedList<Double> clasificado,ArrayList<Double> rangos) {
 
-        return 0;
+        int size1 = noClasificado.size();
+        double distancia = 0;
+
+        if (size1 == clasificado.size() && size1==rangos.size())
+            for (int i = 0; i < size1; i++)
+                distancia += Math.pow((clasificado.get(i) - noClasificado.get(i)) / rangos.get(i),2);
+        else
+            throw new IllegalArgumentException("No coinciden los tamaños de las listas");
+
+        return Math.sqrt(distancia);
     }
+
 
     @Override
     public String clasificar(LinkedList<LinkedList<Double>> datosNoClasificados) {

@@ -1,5 +1,7 @@
 package ruben.eduardo.knn.interfaces;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
 public interface AnalizadorKNN {
@@ -9,7 +11,7 @@ public interface AnalizadorKNN {
    // List<Map.Entry<String, Double>> obtenerVecinos(Accion a);
 
     ArrayList<Double> calcularRangoDeDatos(Set<LinkedList<Double>> datosClasificados);
-    double calcularDistancia(LinkedList<Double> noClasificado, LinkedList<Double> clasificado);
+    double calcularDistancia(@NotNull LinkedList<Double> noClasificado, @NotNull LinkedList<Double> clasificado, ArrayList<Double> rangos);
 
 
 
