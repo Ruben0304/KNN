@@ -1,6 +1,6 @@
 package ruben.eduardo.knn.models;
 
-import ruben.eduardo.knn.interfaces.Cargador;
+import ruben.eduardo.knn.interfaces.IAlmacenador;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -12,9 +12,9 @@ public class Bolsa {
 
     private static LinkedList<Indicador> indicadores;
 
-    public Bolsa(Cargador cargador) {
-        acciones = cargador.cargarAcciones();
-        indicadores = cargador .cargarIndicadores();
+    public Bolsa() {
+//        acciones = cargador.cargarAcciones();
+//        indicadores = cargador .cargarIndicadores();
     }
 
     public static List<Accion> getAcciones() {
