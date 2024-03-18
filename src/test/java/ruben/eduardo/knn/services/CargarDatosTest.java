@@ -1,4 +1,4 @@
-package ruben.eduardo.knn.models;
+package ruben.eduardo.knn.services;
 
 import org.junit.jupiter.api.Test;
 import ruben.eduardo.knn.services.LectorFicheros;

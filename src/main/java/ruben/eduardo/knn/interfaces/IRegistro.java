@@ -4,15 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public interface IAlmacenador {
+public interface IRegistro {
 
     HashMap<LinkedList<Double>,String> getElementos();
-
-    ArrayList<String> getEncabezados();
-
-    void cargarElementos(int posicionClasificacion);
-
-    void cargarEncabezados();
-
 
 }

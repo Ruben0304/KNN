@@ -23,8 +23,9 @@ public class LectorFicheros implements ILectorFicheros {
                 LinkedList<Double> valoresTemp = new LinkedList<>();
                 String[] valores = linea.split(",");
 
-                for (int i = 0; i < valores.length && i != posicionClasificacion; i++) {
-                    valoresTemp.addLast(Double.parseDouble(valores[i]));
+                for (int i = 0; i < valores.length ; i++) {
+                    if (i != posicionClasificacion)
+                     valoresTemp.addLast(Double.parseDouble(valores[i]));
                 }
                 listaValores.put(valoresTemp,valores[posicionClasificacion]);
             }
