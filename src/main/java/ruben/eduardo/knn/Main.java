@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import ruben.eduardo.knn.interfaces.ILectorFicheros;
-import ruben.eduardo.knn.models.Bolsa;
 import ruben.eduardo.knn.services.LectorFicheros;
 
 import java.io.IOException;
@@ -16,7 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         ILectorFicheros c = new LectorFicheros();
-        Bolsa b = new Bolsa();
+//        Bolsa b = new Bolsa();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("KNN");
