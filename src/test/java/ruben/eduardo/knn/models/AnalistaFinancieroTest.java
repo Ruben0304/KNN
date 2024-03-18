@@ -29,4 +29,17 @@ class AnalistaFinancieroTest {
 
 
     }
+
+    @Test
+    void generarMatrizDistancia() {
+//    analistaFinanciero.escribirMatrizEnFichero(analistaFinanciero.generarMatrizDistancia());
+//        double[][] matriz = analistaFinanciero.generarMatrizDistancia();
+//        for (int i = 0; i < matriz.length; i++) {
+//            for (int j = 0; j < matriz[i].length; j++) {
+//                System.out.printf("%10.2f", matriz[i][j]);
+//            }
+//            System.out.println();
+//        }
+//     assertTrue(true);
+    }
 }

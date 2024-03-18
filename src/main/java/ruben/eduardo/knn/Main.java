@@ -23,7 +23,7 @@ public class Main extends Application {
         scene.getStylesheets().add(Main.class.getResource("assets/cupertino-dark.css").toString());
         scene.getStylesheets().add(Main.class.getResource("assets/Personalizado.css").toString());
         Controlador controller = fxmlLoader.getController();
-        controller.addRandomDataToChart();
+
 
         stage.setScene(scene);
         // Establecer dimensiones mínimas
