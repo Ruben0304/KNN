@@ -9,10 +9,12 @@ import java.util.Map;
 
 public interface AnalizadorKNN {
 
+    void normalizarDatos();
     double calcularDistancia(Indicador noClasificado, Indicador Clasificado);
-
     List<Map.Entry<Clasificacion, Double>> obtenerVecinos(Accion a);
     Clasificacion clasificarAccion(Accion a);
+
+
 
 
 
