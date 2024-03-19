@@ -14,7 +14,8 @@ public class Clasificador implements AnalizadorKNN, IClasificador {
 
   protected ArrayList<Double> rangoDeDatos;
 
-  protected final IRegistroClasificados registroClasificados;
+
+    protected final IRegistroClasificados registroClasificados;
 
     public Clasificador(IRegistroClasificados registroClasificados) {
         this.registroClasificados = registroClasificados;
