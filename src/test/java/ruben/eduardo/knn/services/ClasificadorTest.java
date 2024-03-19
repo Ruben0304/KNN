@@ -13,9 +13,9 @@ class ClasificadorTest {
 
     private final ILectorFicheros c = new LectorFicheros();
 
-    private final IRegistroNoClasificados registroNoClasificados = new DatosAClasificar(c.leerArchivo("D:/Proyectos/Java/Escuela/KNN/src/main/resources/ruben/eduardo/knn/Data/acciones.csv"));
+    private final IRegistroNoClasificados registroNoClasificados = new DatosAClasificar(c.leerArchivo("C:/Users/Usuario/IdeaProjects/KNN/src/main/resources/ruben/eduardo/knn/Data/acciones.csv"));
 
-    private final IRegistroClasificados registro = new DatosEntrenamiento(c.leerArchivo("D:/Proyectos/Java/Escuela/KNN/src/main/resources/ruben/eduardo/knn/Data/indicadores.csv", 3));
+    private final IRegistroClasificados registro = new DatosEntrenamiento(c.leerArchivo("C:/Users/Usuario/IdeaProjects/KNN/src/main/resources/ruben/eduardo/knn/Data/indicadores.csv", 3));
 
     private final Clasificador clasificador = new Clasificador(registro);
 
