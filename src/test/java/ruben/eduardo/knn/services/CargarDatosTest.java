@@ -18,7 +18,7 @@ class CargarDatosTest {
     @Test
     void leerEncabezado() {
 
-        c.leerEncabezado("D:/Proyectos/Java/Escuela/KNN/src/main/resources/ruben/eduardo/knn/Data/indicadores.csv").forEach(System.out::println);
+        c.leerEncabezado("C:/Users/Usuario/IdeaProjects/KNN/src/main/resources/ruben/eduardo/knn/Data/indicadores.csv").forEach(System.out::println);
 
         // Importante comporbar que true es true , no quitar
         assertTrue(true);
@@ -28,7 +28,7 @@ class CargarDatosTest {
 
     @Test
     void leerArchivoClasificaciones() {
-        HashMap<LinkedList<Double>, String> f = c.leerArchivo("D:/Proyectos/Java/Escuela/KNN/src/main/resources/ruben/eduardo/knn/Data/indicadores.csv", 3);
+        HashMap<LinkedList<Double>, String> f = c.leerArchivo("C:/Users/Usuario/IdeaProjects/KNN/src/main/resources/ruben/eduardo/knn/Data/indicadores.csv", 3);
         for (String s : f.values()) {
             System.out.println(s);
         }
@@ -37,7 +37,7 @@ class CargarDatosTest {
 
     @Test
     void leerArchivoValores() {
-        HashMap<LinkedList<Double>, String> f = c.leerArchivo("D:/Proyectos/Java/Escuela/KNN/src/main/resources/ruben/eduardo/knn/Data/indicadores.csv", 3);
+        HashMap<LinkedList<Double>, String> f = c.leerArchivo("C:/Users/Usuario/IdeaProjects/KNN/src/main/resources/ruben/eduardo/knn/Data/indicadores.csv", 3);
         for (LinkedList<Double> s : f.keySet()) {
             System.out.println(s);
         }
@@ -50,7 +50,7 @@ class CargarDatosTest {
     @Test
     void leerEncabezadoF() {
 
-        c.leerEncabezado("D:/Proyectos/Java/Escuela/KNN/src/main/resources/ruben/eduardo/knn/Data/Fulbo.csv").forEach(System.out::println);
+        c.leerEncabezado("C:/Users/Usuario/IdeaProjects/KNN/src/main/resources/ruben/eduardo/knn/Data/Fulbo.csv").forEach(System.out::println);
 
         // Importante comporbar que true es true , no quitar
         assertTrue(true);
@@ -59,7 +59,7 @@ class CargarDatosTest {
 
     @Test
     void leerArchivoClasificacionesF() {
-        HashMap<LinkedList<Double>, String> f = c.leerArchivo("D:/Proyectos/Java/Escuela/KNN/src/main/resources/ruben/eduardo/knn/Data/Fulbo.csv", 0);
+        HashMap<LinkedList<Double>, String> f = c.leerArchivo("C:/Users/Usuario/IdeaProjects/KNN/src/main/resources/ruben/eduardo/knn/Data/Fulbo.csv", 0);
         for (String s : f.values()) {
             System.out.println(s);
         }
@@ -68,7 +68,7 @@ class CargarDatosTest {
 
     @Test
     void leerArchivoValoresF() {
-        HashMap<LinkedList<Double>, String> f = c.leerArchivo("D:/Proyectos/Java/Escuela/KNN/src/main/resources/ruben/eduardo/knn/Data/Fulbo.csv", 0);
+        HashMap<LinkedList<Double>, String> f = c.leerArchivo("C:/Users/Usuario/IdeaProjects/KNN/src/main/resources/ruben/eduardo/knn/Data/Fulbo.csv", 0);
         for (LinkedList<Double> s : f.keySet()) {
             System.out.println(s);
         }

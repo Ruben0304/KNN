@@ -82,12 +82,10 @@ public class Clasificador implements AnalizadorKNN, IClasificador {
 
         Map<String, Integer> frecuencia = new HashMap<>();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++)
             frecuencia.put(kVecinos.get(i).getKey(), frecuencia.getOrDefault(kVecinos.get(i).getKey(), 0) + 1);
-        }
 
-        String clasificacionQueMasSeRepite = Collections.max(frecuencia.entrySet(), Map.Entry.comparingByValue()).getKey();
-        return clasificacionQueMasSeRepite;
+        return Collections.max(frecuencia.entrySet(), Map.Entry.comparingByValue()).getKey();
     }
 
     @Override
