@@ -1,22 +1,62 @@
 package ruben.eduardo.knn;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import ruben.eduardo.knn.interfaces.AnalizadorKNN;
-import ruben.eduardo.knn.interfaces.IGeneradorMatrices;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import ruben.eduardo.knn.interfaces.*;
 import ruben.eduardo.knn.models.*;
+import ruben.eduardo.knn.services.Clasificador;
+import ruben.eduardo.knn.services.LectorFicheros;
+
+import java.io.File;
 
 public class Controlador {
 
 
 
-//    AnalizadorKNN analizadorKNN;
+    @FXML
+    private Pane root;
+    @FXML
+    private Button btnEntrenar;
+    @FXML
+    private ScatterChart scatterChart;
+    @FXML
+    private NumberAxis xAxis;
+    @FXML
+    private NumberAxis yAxis;
+    @FXML
+    private Button btnSelecArchClasificado;
+    @FXML
+    private Button btnSelecArchSinClasif;
+    @FXML
+    private Button btnClasificar;
+
+    private IRegistroClasificados registroClasificados;
+
+    private IRegistroNoClasificados registroNoClasificados;
+    private Clasificador clasificador;
+
+
+    private String direccionArchivoClasificado;
+    private String direccionArchivoNoClasificado;
+
+
+
+
+    //    AnalizadorKNN analizadorKNN;
 //    IGeneradorMatrices generadorMatrices;
 //    public Controlador() {
 //        analizadorKNN = new AnalistaFinanciero();
@@ -46,7 +86,7 @@ public class Controlador {
 //    private Button ButtonAccion;
 //
 //    @FXML
-//    private Button btnMatriz;
+//   private Button btnMatriz;
 //
 //    @FXML
 //    private TextField macd;
@@ -58,7 +98,88 @@ public class Controlador {
 //    private TextField Momentum;
 //
 //
-//    public void initialize(){
+//   public void initialize(){
+//       btnMatriz.setOnAction(e -> {
+//           FileChooser filechooser = new FileChooser();
+//           filechooser.setTitle("Open File");
+//           File selected = filechooser.showOpenDialog(ge);
+//       });
+
+    public void handleOpenFileActionArchClasific(ActionEvent event) {
+        direccionArchivoClasificado = obtenerDireccionArchivo(event);
+        btnSelecArchClasificado.setDisable(true);
+
+        if (direccionArchivoClasificado != null && direccionArchivoNoClasificado != null){
+            btnEntrenar.setDisable(false);
+        }
+    }
+
+
+    public void handleOpenFileActionArchNoClasific(ActionEvent event) {
+        direccionArchivoNoClasificado = obtenerDireccionArchivo(event);
+        btnSelecArchSinClasif.setDisable(true);
+
+        if (direccionArchivoClasificado != null && direccionArchivoNoClasificado != null){
+            btnEntrenar.setDisable(false);
+        }
+    }
+
+
+    private String obtenerDireccionArchivo (ActionEvent event){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleccionar Archivo");
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("CSV", "*.csv")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+
+
+        return selectedFile.getAbsolutePath();
+    }
+
+    public void intentarClasificar(ActionEvent event) {
+        LectorFicheros lectorFicheros = new LectorFicheros(direccionArchivoNoClasificado);
+        registroNoClasificados = new DatosAClasificar(lectorFicheros.leerArchivo());
+//        clasificador.clasificarParalelo(registroNoClasificados);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Clasificación");
+            alert.setHeaderText(null);
+            alert.setContentText(clasificador.clasificarParalelo(registroNoClasificados).toString());
+
+
+            // Mostrar el diálogo y esperar hasta que el usuario lo cierre
+            alert.showAndWait();
+
+
+    }
+
+    public void intentarEntrenar(ActionEvent event) {
+
+        LectorFicheros lectorFicheros = new LectorFicheros(direccionArchivoClasificado);
+
+        int posicionClasif = lectorFicheros.obtenerPosicionClasificacion();
+        registroClasificados = new DatosEntrenamiento(lectorFicheros.leerArchivo(posicionClasif));
+        clasificador = new Clasificador(registroClasificados);
+
+        btnClasificar.setDisable(false);
+
+
+
+    }
+
+//       button2.setOnAction(e -> {
+//           FileChooser filechooser = new FileChooser();
+//           filechooser.setTitle("Save File");
+//           File selected = filechooser.showSaveDialog(primaryStage);
+//       });
+
+//       VBox layout = new VBox(btnMatriz);
+//       layout.setAlignment(Pos.CENTER);
+//       layout.setSpacing(25);
+//
+//   }
 //        XYChart.Series<Number, Number> series1 = addRandomDataToChart();
 //        ButtonAccion.setOnAction(event -> {
 //            Double mo = Double.parseDouble(Momentum.getText()) ;

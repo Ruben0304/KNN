@@ -7,24 +7,11 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Circle?>
 
-<Pane fx:id="root" maxHeight="-Infinity" maxWidth="1521.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1047.0" style="-fx-background-color: #0B0B0C;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ruben.eduardo.knn.Controlador">
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="1521.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1047.0" style="-fx-background-color: #0B0B0C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ruben.eduardo.knn.Controlador">
    <children>
-      <Pane layoutX="509.0" layoutY="76.0" prefHeight="170.0" prefWidth="469.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
-         <children>
-            <Label layoutX="153.0" layoutY="25.0" prefHeight="20.0" prefWidth="200.0" text="Agregar dato de estudio" />
-            <TextField fx:id="macd" layoutX="111.0" layoutY="87.0" prefHeight="33.0" prefWidth="68.0" promptText="MACD" />
-            <TextField fx:id="rsi" layoutX="24.0" layoutY="87.0" prefHeight="33.0" prefWidth="68.0" promptText="RSI" />
-            <TextField fx:id="Momentum" layoutX="200.0" layoutY="87.0" prefHeight="33.0" prefWidth="111.0" promptText="MOMENTUM" />
-            <Button fx:id="ButtonAccion" layoutX="344.0" layoutY="87.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="93.0" styleClass="success" text="Clasificar" />
-         </children>
-      </Pane>
-      <Pane layoutX="63.0" layoutY="549.0" prefHeight="154.0" prefWidth="435.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
+      <Pane layoutX="48.0" layoutY="549.0" prefHeight="154.0" prefWidth="435.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
          <children>
             <Label layoutX="180.0" layoutY="24.0" prefHeight="20.0" prefWidth="60.0" text="Adicional" />
             <Button fx:id="btnMatriz" layoutX="263.0" layoutY="78.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Generar" />
@@ -45,90 +32,25 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Pane layoutX="509.0" layoutY="254.0" prefHeight="449.0" prefWidth="469.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
+      <Pane layoutX="498.0" layoutY="309.0" prefHeight="394.0" prefWidth="469.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
          <children>
-            <ScatterChart fx:id="scatterChart" layoutX="4.0" layoutY="3.0" legendVisible="false" prefHeight="391.0" prefWidth="455.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;">
+            <ScatterChart fx:id="scatterChart" layoutX="8.0" layoutY="60.0" legendVisible="false" prefHeight="294.0" prefWidth="455.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;">
                 <xAxis>
                     <NumberAxis fx:id="xAxis" />
                 </xAxis>
                 <yAxis>
                     <NumberAxis fx:id="yAxis" />
                 </yAxis>
-      
-            </ScatterChart>
-            <Label layoutX="71.0" layoutY="396.0" text="Comprar" />
-            <Label layoutX="206.0" layoutY="396.0" text="Mantener" />
-            <Label layoutX="340.0" layoutY="396.0" text="Vender" />
-            <Circle fill="#d18644" layoutX="194.0" layoutY="406.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fill="#37a435" layoutX="59.0" layoutY="406.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fill="#bf3921" layoutX="327.0" layoutY="405.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+
+                        </ScatterChart>
          </children>
       </Pane>
-      <Pane layoutX="63.0" layoutY="79.0" prefHeight="461.0" prefWidth="435.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
+      <Pane layoutX="54.0" layoutY="77.0" prefHeight="464.0" prefWidth="435.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
          <children>
-            <Label layoutX="100.0" layoutY="30.0" prefHeight="20.0" prefWidth="54.0" text="Índice" />
-            <Label layoutX="191.0" layoutY="30.0" prefHeight="20.0" prefWidth="54.0" text="Precio" />
-            <Label layoutX="285.0" layoutY="30.0" prefHeight="20.0" prefWidth="123.0" text="Recomendación ML" />
-            <Pane layoutX="15.0" layoutY="64.0" prefHeight="54.0" prefWidth="393.0">
-               <children>
-                  <Label layoutX="88.0" layoutY="17.0" prefHeight="20.0" prefWidth="54.0" text="AAPL" />
-                  <Label layoutX="175.0" layoutY="17.0" prefHeight="20.0" prefWidth="44.0" text="174.60" />
-                  <Label fx:id="lblApple" alignment="CENTER" layoutX="286.0" layoutY="17.0" prefHeight="20.0" prefWidth="93.0" text="Comprar" textAlignment="CENTER" />
-                  <ImageView fitHeight="31.0" fitWidth="25.0" layoutX="26.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/Apple%20Logo.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane layoutX="15.0" layoutY="140.0" prefHeight="54.0" prefWidth="393.0">
-               <children>
-                  <Label layoutX="88.0" layoutY="17.0" prefHeight="20.0" prefWidth="54.0" text="BTC" />
-                  <Label layoutX="175.0" layoutY="17.0" prefHeight="20.0" prefWidth="60.0" text="72131.5" />
-                  <Label fx:id="lblBtc" alignment="CENTER" layoutX="286.0" layoutY="17.0" prefHeight="20.0" prefWidth="93.0" text="Vender" textAlignment="CENTER" />
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="22.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/Bitcoin.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane layoutX="15.0" layoutY="222.0" prefHeight="54.0" prefWidth="393.0">
-               <children>
-                  <Label layoutX="88.0" layoutY="17.0" prefHeight="20.0" prefWidth="54.0" text="NFLX" />
-                  <Label layoutX="175.0" layoutY="17.0" prefHeight="20.0" prefWidth="44.0" text="124.20" />
-                  <Label fx:id="lblNetflix" alignment="CENTER" layoutX="286.0" layoutY="17.0" prefHeight="20.0" prefWidth="93.0" text="Comprar" textAlignment="CENTER" />
-                  <ImageView fitHeight="34.0" fitWidth="44.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/Netflix.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane layoutX="15.0" layoutY="305.0" prefHeight="54.0" prefWidth="393.0">
-               <children>
-                  <Label layoutX="88.0" layoutY="17.0" prefHeight="20.0" prefWidth="54.0" text="AMZN" />
-                  <Label layoutX="175.0" layoutY="17.0" prefHeight="20.0" prefWidth="44.0" text="140.60" />
-                  <Label fx:id="lblAmazon" alignment="CENTER" layoutX="286.0" layoutY="17.0" prefHeight="20.0" prefWidth="93.0" text="Mantener" textAlignment="CENTER" />
-                  <ImageView fitHeight="31.0" fitWidth="25.0" layoutX="21.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/Amazon%20Shopping%20App.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane layoutX="15.0" layoutY="385.0" prefHeight="54.0" prefWidth="393.0">
-               <children>
-                  <Label layoutX="88.0" layoutY="17.0" prefHeight="20.0" prefWidth="54.0" text="TSLA" />
-                  <Label layoutX="175.0" layoutY="17.0" prefHeight="20.0" prefWidth="44.0" text="188.9" />
-                  <Label fx:id="lblTesla" alignment="CENTER" layoutX="286.0" layoutY="17.0" prefHeight="20.0" prefWidth="93.0" text="Vender" textAlignment="CENTER" />
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assets/Tesla.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
+            <Button fx:id="btnSelecArchClasificado" layoutX="122.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleOpenFileActionArchClasific" prefHeight="33.0" prefWidth="192.0" styleClass="accent" text="Añadir archivo clasificado" />
+            <Button fx:id="btnSelecArchSinClasif" layoutX="117.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleOpenFileActionArchNoClasific" prefHeight="33.0" prefWidth="202.0" styleClass="accent" text="Añadir archivo para clasificar" />
+            <Button fx:id="btnClasificar" disable="true" layoutX="300.0" layoutY="407.0" mnemonicParsing="false" onAction="#intentarClasificar" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Clasificar" />
+            <Button fx:id="btnEntrenar" disable="true" layoutX="167.0" layoutY="407.0" mnemonicParsing="false" onAction="#intentarEntrenar" prefHeight="33.0" prefWidth="102.0" styleClass="success" text="Entrenar" />
          </children>
       </Pane>
    </children>
