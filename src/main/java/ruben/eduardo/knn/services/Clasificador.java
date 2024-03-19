@@ -7,6 +7,8 @@ import ruben.eduardo.knn.interfaces.IRegistroClasificados;
 import ruben.eduardo.knn.interfaces.IRegistroNoClasificados;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ForkJoinPool;
 
 public class Clasificador implements AnalizadorKNN, IClasificador {
 
@@ -43,12 +45,12 @@ public class Clasificador implements AnalizadorKNN, IClasificador {
             for (int i = 0; i < numColumnas; i++) {
                 int columna = i;
 
-                double max = datosClasificados.stream()
+                double max = datosClasificados.parallelStream()
                         .mapToDouble(lista -> lista.get(columna))
                         .max()
                         .orElseThrow(NoSuchElementException::new);
 
-                double min = datosClasificados.stream()
+                double min = datosClasificados.parallelStream()
                         .mapToDouble(lista -> lista.get(columna))
                         .min()
                         .orElseThrow(NoSuchElementException::new);
@@ -97,6 +99,16 @@ public class Clasificador implements AnalizadorKNN, IClasificador {
         for (LinkedList<Double> c : noClasificados.getElementos())
             clasificaciones.put(c,clasificar(c));
 
+        return clasificaciones;
+    }
+
+
+    public ConcurrentHashMap<LinkedList<Double>, String> clasificarParalelo(@NotNull IRegistroNoClasificados noClasificados) {
+        ConcurrentHashMap<LinkedList<Double>, String> clasificaciones = new ConcurrentHashMap<>();
+        ForkJoinPool customThreadPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
+        customThreadPool.submit(() ->
+                noClasificados.getElementos().parallelStream().forEach(c -> clasificaciones.put(c, clasificar(c)))
+        ).join();
         return clasificaciones;
     }
 }

@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public interface ILectorFicheros {
-    HashMap<LinkedList<Double>, String> leerArchivo(String nombreArchivo, int posicionClasificacion);
+    HashMap<LinkedList<Double>, String> leerArchivo(int posicionClasificacion);
 
-    LinkedList<LinkedList<Double>> leerArchivo(String nombreArchivo);
+    LinkedList<LinkedList<Double>> leerArchivo();
 
-    ArrayList<String> leerEncabezado(String nombreArchivo);
+    ArrayList<String> leerEncabezado();
 }
