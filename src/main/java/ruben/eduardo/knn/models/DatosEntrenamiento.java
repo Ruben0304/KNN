@@ -1,11 +1,11 @@
 package ruben.eduardo.knn.models;
 
-import ruben.eduardo.knn.interfaces.IRegistro;
+import ruben.eduardo.knn.interfaces.IRegistroClasificados;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class DatosEntrenamiento implements IRegistro {
+public class DatosEntrenamiento implements IRegistroClasificados {
 
 
     protected HashMap<LinkedList<Double>,String> elementos;

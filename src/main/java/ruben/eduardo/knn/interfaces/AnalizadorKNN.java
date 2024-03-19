@@ -8,10 +8,10 @@ public interface AnalizadorKNN {
 
 
 
-   // List<Map.Entry<String, Double>> obtenerVecinos(Accion a);
+    ArrayList<Map.Entry<String, Double>> obtenerVecinos(HashMap<LinkedList<Double>,String> clasificados, LinkedList<Double> noClasificados);
 
     ArrayList<Double> calcularRangoDeDatos(Set<LinkedList<Double>> datosClasificados);
-    double calcularDistancia(@NotNull LinkedList<Double> noClasificado, @NotNull LinkedList<Double> clasificado, ArrayList<Double> rangos);
+    double calcularDistancia(@NotNull LinkedList<Double> noClasificado, @NotNull LinkedList<Double> clasificado);
 
 
 
