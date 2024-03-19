@@ -5,14 +5,18 @@ import ruben.eduardo.knn.interfaces.ILectorFicheros;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 public class LectorFicheros implements ILectorFicheros {
+
+    protected String nombreArchivo;
+
+    public LectorFicheros(String nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
+    }
+
     @Override
-    public HashMap<LinkedList<Double>, String> leerArchivo(String nombreArchivo, int posicionClasificacion) {
+    public HashMap<LinkedList<Double>, String> leerArchivo(int posicionClasificacion) {
 
         HashMap<LinkedList<Double>, String> listaValores = new HashMap<>();
 
@@ -23,11 +27,11 @@ public class LectorFicheros implements ILectorFicheros {
                 LinkedList<Double> valoresTemp = new LinkedList<>();
                 String[] valores = linea.split(",");
 
-                for (int i = 0; i < valores.length ; i++) {
+                for (int i = 0; i < valores.length; i++) {
                     if (i != posicionClasificacion)
-                     valoresTemp.addLast(Double.parseDouble(valores[i]));
+                        valoresTemp.addLast(Double.parseDouble(valores[i]));
                 }
-                listaValores.put(valoresTemp,valores[posicionClasificacion]);
+                listaValores.put(valoresTemp, valores[posicionClasificacion]);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -36,7 +40,7 @@ public class LectorFicheros implements ILectorFicheros {
     }
 
     @Override
-    public LinkedList<LinkedList<Double>> leerArchivo(String nombreArchivo) {
+    public LinkedList<LinkedList<Double>> leerArchivo() {
 
         LinkedList<LinkedList<Double>> listaValores = new LinkedList<>();
 
@@ -47,8 +51,8 @@ public class LectorFicheros implements ILectorFicheros {
                 LinkedList<Double> valoresTemp = new LinkedList<>();
                 String[] valores = linea.split(",");
 
-                for (int i = 0; i < valores.length ; i++) {
-                        valoresTemp.addLast(Double.parseDouble(valores[i]));
+                for (int i = 0; i < valores.length; i++) {
+                    valoresTemp.addLast(Double.parseDouble(valores[i]));
                 }
                 listaValores.addLast(valoresTemp);
             }
@@ -59,7 +63,7 @@ public class LectorFicheros implements ILectorFicheros {
     }
 
     @Override
-    public ArrayList<String> leerEncabezado(String nombreArchivo) {
+    public ArrayList<String> leerEncabezado() {
         ArrayList<String> encabezados = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
@@ -73,4 +77,22 @@ public class LectorFicheros implements ILectorFicheros {
         }
         return encabezados;
     }
+
+    public int obtenerPosicionClasificacion() {
+        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+            String linea;
+                    br.readLine(); // 1ra
+            linea = br.readLine(); // 2da
+            String[] valores = linea.split(",");
+
+            for (int i = 0; i < valores.length; i++)
+                if (!valores[i].matches("-?\\d+(\\.\\d+)?"))
+                    return i;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
 }
