@@ -36,6 +36,29 @@ public class LectorFicheros implements ILectorFicheros {
     }
 
     @Override
+    public LinkedList<LinkedList<Double>> leerArchivo(String nombreArchivo) {
+
+        LinkedList<LinkedList<Double>> listaValores = new LinkedList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+            String linea;
+            br.readLine();
+            while ((linea = br.readLine()) != null) {
+                LinkedList<Double> valoresTemp = new LinkedList<>();
+                String[] valores = linea.split(",");
+
+                for (int i = 0; i < valores.length ; i++) {
+                        valoresTemp.addLast(Double.parseDouble(valores[i]));
+                }
+                listaValores.addLast(valoresTemp);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return listaValores;
+    }
+
+    @Override
     public ArrayList<String> leerEncabezado(String nombreArchivo) {
         ArrayList<String> encabezados = new ArrayList<>();
 
