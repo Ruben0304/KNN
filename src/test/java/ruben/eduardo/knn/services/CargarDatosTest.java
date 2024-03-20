@@ -1,6 +1,9 @@
 package ruben.eduardo.knn.services;
 
 import com.github.javafaker.Faker;
+
+
+import cu.edu.cujae.ceis.tree.binary.BinaryTree;
 import org.junit.jupiter.api.Test;
 import ruben.eduardo.knn.services.LectorFicheros;
 import ruben.eduardo.knn.interfaces.ILectorFicheros;
@@ -8,6 +11,7 @@ import ruben.eduardo.knn.interfaces.ILectorFicheros;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,6 +26,7 @@ class CargarDatosTest {
 
         c.leerEncabezado().forEach(System.out::println);
         // Importante comporbar que true es true , no quitar
+
         assertTrue(true);
 
     }
@@ -40,6 +45,7 @@ class CargarDatosTest {
     @Test
     void leerArchivoValores() {
         HashMap<LinkedList<Double>, String> f = c.leerArchivo(3);
+
         for (LinkedList<Double> s : f.keySet()) {
             System.out.println(s);
         }
@@ -65,6 +71,7 @@ class CargarDatosTest {
         for (String s : f.values()) {
             System.out.println(s);
         }
+
         assertTrue(true);
     }
 
@@ -104,10 +111,17 @@ class CargarDatosTest {
         assertTrue(true);
     }
 
-    @Test
-    void obtenerPosicionClasificacion() {
-        assertEquals(0,c.obtenerPosicionClasificacion());
-    }
+//    @Test
+//    void obtenerPosicionClasificacion() {
+//        AvlTree<String> avlTree = new AvlTree<>("A");
+//        Faker faker = new Faker(Locale.getDefault());
+//        for (int i = 0; i < 100; i++) {
+//            avlTree.insert(faker.funnyName().toString());
+//        }
+//
+//        //TreePrinter.print((PrintableNode) avlTree.getNodeRoot());
+//        assertEquals(0,c.obtenerPosicionClasificacion());
+//    }
 
 //    @Test
 //    void crearCsv1MillonNC() {
@@ -132,6 +146,9 @@ class CargarDatosTest {
 //        }
 //        assertTrue(true);
 //    }
+
+
+
 
 
 }

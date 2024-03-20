@@ -10,6 +10,7 @@ public class DatosAClasificar implements IRegistroNoClasificados {
 
     public DatosAClasificar(LinkedList<LinkedList<Double>> elementos) {
         this.elementos = elementos;
+
     }
 
     @Override
