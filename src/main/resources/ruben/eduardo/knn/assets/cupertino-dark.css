@@ -4125,6 +4125,11 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
   -fx-background-color: -color-accent-emphasis;
   -fx-padding: 0.6em;
 }
+
+#ioio > .determinate-indicator > .progress{
+  -fx-background-color: #39a139;
+  -fx-padding: 0.6em;
+}
 .progress-indicator > .determinate-indicator > .tick {
   -fx-background-color: -color-fg-emphasis;
   -fx-background-insets: 0;
