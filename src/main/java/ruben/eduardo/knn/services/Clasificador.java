@@ -1,10 +1,12 @@
 package ruben.eduardo.knn.services;
 
 import org.jetbrains.annotations.NotNull;
+import ruben.eduardo.knn.avl.AvlTree;
 import ruben.eduardo.knn.interfaces.AnalizadorKNN;
 import ruben.eduardo.knn.interfaces.IClasificador;
 import ruben.eduardo.knn.interfaces.IRegistroClasificados;
 import ruben.eduardo.knn.interfaces.IRegistroNoClasificados;
+import ruben.eduardo.knn.models.DistanciaAClasificacion;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -32,6 +34,27 @@ public class Clasificador implements AnalizadorKNN, IClasificador {
          return listaVecinos;
 
     }
+
+    public LinkedList<Map.Entry<String, Double>> obtenerVecinosLinked(HashMap<LinkedList<Double>,String> clasificados, LinkedList<Double> noClasificados) {
+
+        LinkedList<Map.Entry<String, Double>> listaVecinos = new LinkedList<>();
+        for (Map.Entry<LinkedList<Double>,String> c : clasificados.entrySet())
+            listaVecinos.addLast(Map.entry(c.getValue(),calcularDistancia(noClasificados,c.getKey())));
+
+        return listaVecinos;
+
+    }
+
+    public AvlTree<DistanciaAClasificacion> obtenerVecinosAvl(HashMap<LinkedList<Double>,String> clasificados, LinkedList<Double> noClasificados) {
+
+        AvlTree<DistanciaAClasificacion> listaVecinos = new AvlTree<>();
+        for (Map.Entry<LinkedList<Double>,String> c : clasificados.entrySet())
+            listaVecinos.insert(new DistanciaAClasificacion(Map.entry(c.getValue(),calcularDistancia(noClasificados,c.getKey()))));
+
+        return listaVecinos;
+
+    }
+
 
     @Override
     public ArrayList<Double> calcularRangoDeDatos(@NotNull Set<LinkedList<Double>> datosClasificados) {
@@ -91,6 +114,40 @@ public class Clasificador implements AnalizadorKNN, IClasificador {
         return Collections.max(frecuencia.entrySet(), Map.Entry.comparingByValue()).getKey();
     }
 
+    public String clasificarlinked(LinkedList<Double> elementoNoClasificado) {
+        LinkedList<Map.Entry<String, Double>> kVecinos = obtenerVecinosLinked(registroClasificados.getElementos(),elementoNoClasificado);
+        kVecinos.sort(Map.Entry.comparingByValue());
+
+        Map<String, Integer> frecuencia = new HashMap<>();
+
+        for (int i = 0; i < 5; i++)
+            frecuencia.put(kVecinos.get(i).getKey(), frecuencia.getOrDefault(kVecinos.get(i).getKey(), 0) + 1);
+
+        return Collections.max(frecuencia.entrySet(), Map.Entry.comparingByValue()).getKey();
+    }
+
+
+    public String clasificarAvl(LinkedList<Double> elementoNoClasificado) {
+        AvlTree<DistanciaAClasificacion> kVecinos = obtenerVecinosAvl(registroClasificados.getElementos(), elementoNoClasificado);
+        ArrayList<DistanciaAClasificacion> distanciaAClasificaciones = kVecinos.findNElements(5, false);
+
+        Map<String, Integer> frecuencia = new HashMap<>();
+
+        // Contar la frecuencia de cada String en la lista
+        for (DistanciaAClasificacion clasificacion : distanciaAClasificaciones) {
+            String clave = clasificacion.distancia().getKey();
+            frecuencia.put(clave, frecuencia.getOrDefault(clave, 0) + 1);
+        }
+
+        // Encontrar el String con la mayor frecuencia
+        String masFrecuente = Collections.max(frecuencia.entrySet(), Map.Entry.comparingByValue()).getKey();
+
+        return masFrecuente;
+    }
+
+
+
+
     @Override
     public HashMap<LinkedList<Double>, String> clasificar(@NotNull IRegistroNoClasificados noClasificados) {
 
@@ -102,11 +159,31 @@ public class Clasificador implements AnalizadorKNN, IClasificador {
     }
 
 
+
+    public ConcurrentHashMap<LinkedList<Double>, String> clasificarParaleloAvl( IRegistroNoClasificados noClasificados) {
+        ConcurrentHashMap<LinkedList<Double>, String> clasificaciones = new ConcurrentHashMap<>();
+        ForkJoinPool customThreadPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
+        customThreadPool.submit(() ->
+                noClasificados.getElementos().parallelStream().forEach(c -> clasificaciones.put(c, clasificarAvl(c)))
+        ).join();
+        return clasificaciones;
+    }
+
+
     public ConcurrentHashMap<LinkedList<Double>, String> clasificarParalelo(@NotNull IRegistroNoClasificados noClasificados) {
         ConcurrentHashMap<LinkedList<Double>, String> clasificaciones = new ConcurrentHashMap<>();
         ForkJoinPool customThreadPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
         customThreadPool.submit(() ->
                 noClasificados.getElementos().parallelStream().forEach(c -> clasificaciones.put(c, clasificar(c)))
+        ).join();
+        return clasificaciones;
+    }
+
+    public ConcurrentHashMap<LinkedList<Double>, String> clasificarParaleloLinked(@NotNull IRegistroNoClasificados noClasificados) {
+        ConcurrentHashMap<LinkedList<Double>, String> clasificaciones = new ConcurrentHashMap<>();
+        ForkJoinPool customThreadPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
+        customThreadPool.submit(() ->
+                noClasificados.getElementos().parallelStream().forEach(c -> clasificaciones.put(c, clasificarlinked(c)))
         ).join();
         return clasificaciones;
     }

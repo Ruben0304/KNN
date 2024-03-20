@@ -8,6 +8,7 @@ module ruben.eduardo.knn {
     requires org.kordamp.ikonli.javafx;
     requires eu.hansolo.tilesfx;
     requires org.jetbrains.annotations;
+    requires arboles;
 
     opens ruben.eduardo.knn to javafx.fxml;
     exports ruben.eduardo.knn;
