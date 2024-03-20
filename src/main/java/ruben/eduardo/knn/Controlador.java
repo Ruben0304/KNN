@@ -10,6 +10,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -23,10 +24,18 @@ import ruben.eduardo.knn.models.*;
 import ruben.eduardo.knn.services.Clasificador;
 import ruben.eduardo.knn.services.LectorFicheros;
 
-import java.io.File;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ForkJoinPool;
+import java.util.stream.Collectors;
+import java.awt.Desktop;
+import java.util.stream.Stream;
+import javax.swing.JOptionPane;
 
 public class Controlador {
 
@@ -35,6 +44,8 @@ public class Controlador {
     public ProgressIndicator progress;
     @FXML
     public ProgressIndicator progressVerde;
+    public TextArea txtAreaClasifUnEelemnt;
+    public Button btnClasificar1Elemnt;
     @FXML
     private Pane root;
     @FXML
@@ -61,6 +72,9 @@ public class Controlador {
     private int elementosProcesados = 0;
     private String direccionArchivoClasificado;
     private String direccionArchivoNoClasificado;
+
+
+    private LinkedList<Double> listaDatos = new LinkedList<>();
 
 
     //    AnalizadorKNN analizadorKNN;
@@ -112,23 +126,91 @@ public class Controlador {
 //           File selected = filechooser.showOpenDialog(ge);
 //       });
 
+    public void initialize() {
+        txtAreaClasifUnEelemnt.setStyle("-fx-control-inner-background: #1c1c1e");
+
+    }
+
+    public LinkedList<Double> obtenerDatosDelTextArea() {
+
+        LectorFicheros lectorFicheros = new LectorFicheros(direccionArchivoClasificado);
+
+        int numColumnas = lectorFicheros.leerEncabezado().size();
+
+        LinkedList<Double> listaDatos = new LinkedList<>();
+        // Obtener el texto del TextArea
+        String texto = txtAreaClasifUnEelemnt.getText();
+
+        // Dividir el texto en valores separados por comas
+        String[] valores = texto.split(",");
+
+        // Verificar si el número de valores es igual al número de columnas en el archivo CSV
+        if (valores.length != numColumnas - 1) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Cantidad de valores errónea");
+
+            alert.showAndWait();
+            return null;
+        }
+
+        // Convertir cada valor a Double y añadirlo a la lista
+        for (String valor : valores) {
+            try {
+                double numero = Double.parseDouble(valor.trim());
+                listaDatos.add(numero);
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Solo se aceptan valores numéricos");
+
+                alert.showAndWait();
+                return null;
+            }
+        }
+
+        return listaDatos;
+    }
+
+    public void intentarClasificar1element(ActionEvent actionEvent) {
+        LinkedList<Double> lista = obtenerDatosDelTextArea();
+
+        if (lista!=null) {
+            String resultadoClasificacion = clasificador.clasificar(lista);
+
+
+
+            // Mostrar un Alert con el resultado de la clasificación
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Resultado de la Clasificación");
+            alert.setHeaderText(null);
+            alert.setContentText("El resultado de la clasificación es: " + resultadoClasificacion);
+
+            alert.showAndWait();
+        }
+
+
+    }
+
     public void handleOpenFileActionArchClasific(ActionEvent event) {
         direccionArchivoClasificado = obtenerDireccionArchivo(event);
         btnSelecArchClasificado.setDisable(true);
 
-        if (direccionArchivoClasificado != null && direccionArchivoNoClasificado != null) {
+        txtAreaClasifUnEelemnt.setDisable(false);
+        btnClasificar1Elemnt.setDisable(false);
+
+        if (direccionArchivoClasificado != null) {
             btnEntrenar.setDisable(false);
         }
+
     }
 
 
     public void handleOpenFileActionArchNoClasific(ActionEvent event) {
         direccionArchivoNoClasificado = obtenerDireccionArchivo(event);
         btnSelecArchSinClasif.setDisable(true);
-
-        if (direccionArchivoClasificado != null && direccionArchivoNoClasificado != null) {
-            btnEntrenar.setDisable(false);
-        }
     }
 
 
@@ -154,7 +236,6 @@ public class Controlador {
         iniciarClasificacion();
 
 
-
     }
 
     public void intentarEntrenar(ActionEvent event) {
@@ -165,8 +246,12 @@ public class Controlador {
         registroClasificados = new DatosEntrenamiento(lectorFicheros.leerArchivo(posicionClasif));
         clasificador = new Clasificador(registroClasificados);
 
-        btnClasificar.setDisable(false);
+        btnClasificar1Elemnt.setDisable(false);
         progressVerde.setProgress(1.0);
+
+
+        if (registroClasificados!=null && registroNoClasificados!=null)
+            btnClasificar.setDisable(false);
 
 
     }
@@ -177,9 +262,9 @@ public class Controlador {
         progress.setProgress(0);
 
         totalElementos = registroNoClasificados.getElementos().size();
-        Task<Void> task = new Task<Void>() {
+        Task<ConcurrentHashMap<LinkedList<Double>, String>> task = new Task<ConcurrentHashMap<LinkedList<Double>, String>>() {
             @Override
-            protected Void call() throws Exception {
+            protected ConcurrentHashMap<LinkedList<Double>, String> call() throws Exception {
 
                 ConcurrentHashMap<LinkedList<Double>, String> clasificaciones = new ConcurrentHashMap<>();
                 ForkJoinPool customThreadPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
@@ -191,22 +276,84 @@ public class Controlador {
 
                         })
                 ).join();
-                return null;
 
+                return clasificaciones;
             }
         };
 
 
-
-        task.setOnSucceeded(e ->{progress.setProgress(1.0); Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        task.setOnSucceeded(e -> {
+            progress.setProgress(1.0);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Proceso Completado");
             alert.setHeaderText(null);
             alert.setContentText("Datos analizados correctamente");
-            alert.showAndWait();} );
+
+
+            ButtonType verCsvButtonType = new ButtonType("Ver CSV");
+            alert.getButtonTypes().setAll(ButtonType.OK, verCsvButtonType);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == verCsvButtonType) {
+
+                mostrarClasificacionesComoCsv(task.getValue());
+            }
+        });
         task.setOnFailed(e -> progress.setProgress(0));
 
         new Thread(task).start();
     }
+
+    private void mostrarClasificacionesComoCsv(ConcurrentHashMap<LinkedList<Double>, String> clasificaciones) {
+
+        exportarClasificacionesACsv(clasificaciones);
+
+        // abrir el archivo con la aplicación predeterminada del sistema
+        try {
+            Desktop.getDesktop().open(new File("C:/Users/Usuario/IdeaProjects/KNN/src/main/resources/ruben/eduardo/knn/Data/clasificado.csv"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void exportarClasificacionesACsv(ConcurrentHashMap<LinkedList<Double>, String> clasificaciones) {
+        StringBuilder csvBuilder = new StringBuilder();
+        // Definir el encabezado del CSV
+        try (Stream<String> lines = Files.lines(Paths.get(direccionArchivoClasificado))) {
+            String header = lines.findFirst().orElse("");
+            csvBuilder.append(header).append("\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Iterar sobre el ConcurrentHashMap y construir el contenido del CSV
+        for (Map.Entry<LinkedList<Double>, String> entrada : clasificaciones.entrySet()) {
+            // Convertir la clave (LinkedList) a String
+            String claveComoCadena = entrada.getKey().stream()
+                    .map(Object::toString)
+                    .collect(Collectors.joining(","));
+            // Agregar la clave y el valor al StringBuilder
+            csvBuilder.append(claveComoCadena)
+                    .append(",")
+                    .append(entrada.getValue())
+                    .append("\n");
+        }
+
+        // Escribir el contenido del StringBuilder en un archivo CSV
+        try (PrintWriter out = new PrintWriter("C:/Users/Usuario/IdeaProjects/KNN/src/main/resources/ruben/eduardo/knn/Data/clasificado.csv")) {
+            out.println(csvBuilder.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cantDecolum(KeyEvent keyEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Proceso Completado");
+        alert.setHeaderText(null);
+        alert.setContentText("Datos analizados correctamente");
+    }
+
 
 //       button2.setOnAction(e -> {
 //           FileChooser filechooser = new FileChooser();
@@ -294,26 +441,26 @@ public class Controlador {
 //
 //    }
 //
-//    private XYChart.Series<Number, Number> addRandomDataToChart() {
-//
-//
-//        // Crear la primera serie de datos y agregar tus datos
-//        XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
-//        series1.setName("Indicadores");
-//        for (Indicador i : Bolsa.getIndicadores()) {
-//            XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(i.Momentum, i.MACD);
-//            Circle circle = new Circle();
-//            circle.setRadius(i.RSI * 0.065 );
-//            circle.setFill(i.getClasificacion().equals(Clasificacion.Comprar) ? Color.GREEN : (i.getClasificacion().equals(Clasificacion.Vender) ? Color.RED : Color.ORANGE));
-//            dataPoint.setNode(circle);
-//            series1.getData().add(dataPoint);
-//        }
-//
-//
-//
-//        scatterChart.getData().addAll(series1);
-//        return series1;
-//    }
+    private XYChart.Series<Number, Number> addRandomDataToChart() {
+
+
+        // Crear la primera serie de datos y agregar tus datos
+        XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
+        series1.setName("Indicadores");
+        for (Indicador i : Bolsa.getIndicadores()) {
+            XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(i.Momentum, i.MACD);
+            Circle circle = new Circle();
+            circle.setRadius(i.RSI * 0.065 );
+            circle.setFill(i.getClasificacion().equals(Clasificacion.Comprar) ? Color.GREEN : (i.getClasificacion().equals(Clasificacion.Vender) ? Color.RED : Color.ORANGE));
+            dataPoint.setNode(circle);
+            series1.getData().add(dataPoint);
+        }
+
+
+
+        scatterChart.getData().addAll(series1);
+        return series1;
+    }
 //
 //
 //    private void addAcciontoChart(Accion a , XYChart.Series<Number, Number> serie){

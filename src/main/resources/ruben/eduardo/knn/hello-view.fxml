@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.ScatterChart?>
 <?import javafx.scene.control.Button?>
@@ -8,6 +9,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.Pane?>
 
 <Pane fx:id="root" maxHeight="-Infinity" maxWidth="1521.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1047.0" style="-fx-background-color: #0B0B0C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ruben.eduardo.knn.Controlador">
@@ -46,14 +48,20 @@
                         </ScatterChart>
          </children>
       </Pane>
-      <Pane layoutX="54.0" layoutY="77.0" prefHeight="464.0" prefWidth="435.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
+      <Pane layoutX="48.0" layoutY="77.0" prefHeight="464.0" prefWidth="435.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
          <children>
-            <Button fx:id="btnSelecArchClasificado" layoutX="122.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleOpenFileActionArchClasific" prefHeight="33.0" prefWidth="192.0" styleClass="accent" text="Añadir archivo clasificado" />
-            <Button fx:id="btnSelecArchSinClasif" layoutX="117.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleOpenFileActionArchNoClasific" prefHeight="33.0" prefWidth="202.0" styleClass="accent" text="Añadir archivo para clasificar" />
+            <Button fx:id="btnSelecArchClasificado" layoutX="122.0" layoutY="306.0" mnemonicParsing="false" onAction="#handleOpenFileActionArchClasific" prefHeight="33.0" prefWidth="192.0" styleClass="accent" text="Añadir archivo clasificado" />
+            <Button fx:id="btnSelecArchSinClasif" layoutX="117.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleOpenFileActionArchNoClasific" prefHeight="33.0" prefWidth="202.0" styleClass="accent" text="Añadir archivo para clasificar" />
             <Button fx:id="btnClasificar" disable="true" layoutX="243.0" layoutY="405.0" mnemonicParsing="false" onAction="#intentarClasificar" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Clasificar" />
             <Button fx:id="btnEntrenar" disable="true" layoutX="98.0" layoutY="405.0" mnemonicParsing="false" onAction="#intentarEntrenar" prefHeight="33.0" prefWidth="102.0" styleClass="success" text="Entrenar" />
             <ProgressIndicator fx:id="progress" layoutX="367.0" layoutY="407.0" prefHeight="47.0" prefWidth="26.0" progress="0.0" />
-            <ProgressIndicator fx:id="progressVerde" id="ioio" layoutX="55.0" layoutY="407.0" prefHeight="47.0" prefWidth="26.0" progress="0.0" />
+            <ProgressIndicator id="ioio" fx:id="progressVerde" layoutX="55.0" layoutY="407.0" prefHeight="47.0" prefWidth="26.0" progress="0.0" />
+            <TextArea fx:id="txtAreaClasifUnEelemnt" disable="true" layoutX="66.0" layoutY="23.0" prefHeight="87.0" prefWidth="304.0" promptText=" escriba datos separados por coma para clasificar un elemento" styleClass="success">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TextArea>
+            <Button fx:id="btnClasificar1Elemnt" disable="true" layoutX="167.0" layoutY="122.0" mnemonicParsing="false" onAction="#intentarClasificar1element" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Clasificar" />
          </children>
       </Pane>
    </children>

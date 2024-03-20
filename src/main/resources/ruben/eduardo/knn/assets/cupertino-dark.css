@@ -140,6 +140,9 @@ Text {
   -fx-font-size: 2em;
   -fx-font-weight: bolder;
 }
+.mi-text-area {
+  -fx-text-fill: black;
+}
 
 .title-2 {
   -fx-font-size: 1.75em;
