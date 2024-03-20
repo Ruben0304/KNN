@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.layout.Pane?>
 
 <Pane fx:id="root" maxHeight="-Infinity" maxWidth="1521.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1047.0" style="-fx-background-color: #0B0B0C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ruben.eduardo.knn.Controlador">
@@ -49,8 +50,10 @@
          <children>
             <Button fx:id="btnSelecArchClasificado" layoutX="122.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleOpenFileActionArchClasific" prefHeight="33.0" prefWidth="192.0" styleClass="accent" text="Añadir archivo clasificado" />
             <Button fx:id="btnSelecArchSinClasif" layoutX="117.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleOpenFileActionArchNoClasific" prefHeight="33.0" prefWidth="202.0" styleClass="accent" text="Añadir archivo para clasificar" />
-            <Button fx:id="btnClasificar" disable="true" layoutX="300.0" layoutY="407.0" mnemonicParsing="false" onAction="#intentarClasificar" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Clasificar" />
-            <Button fx:id="btnEntrenar" disable="true" layoutX="167.0" layoutY="407.0" mnemonicParsing="false" onAction="#intentarEntrenar" prefHeight="33.0" prefWidth="102.0" styleClass="success" text="Entrenar" />
+            <Button fx:id="btnClasificar" disable="true" layoutX="243.0" layoutY="405.0" mnemonicParsing="false" onAction="#intentarClasificar" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Clasificar" />
+            <Button fx:id="btnEntrenar" disable="true" layoutX="98.0" layoutY="405.0" mnemonicParsing="false" onAction="#intentarEntrenar" prefHeight="33.0" prefWidth="102.0" styleClass="success" text="Entrenar" />
+            <ProgressIndicator fx:id="progress" layoutX="367.0" layoutY="407.0" prefHeight="47.0" prefWidth="26.0" progress="0.0" />
+            <ProgressIndicator fx:id="progressVerde" id="ioio" layoutX="55.0" layoutY="407.0" prefHeight="47.0" prefWidth="26.0" progress="0.0" />
          </children>
       </Pane>
    </children>

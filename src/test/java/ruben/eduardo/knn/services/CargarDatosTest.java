@@ -1,5 +1,6 @@
 package ruben.eduardo.knn.services;
 
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import ruben.eduardo.knn.services.LectorFicheros;
 import ruben.eduardo.knn.interfaces.ILectorFicheros;
@@ -76,32 +77,32 @@ class CargarDatosTest {
         assertTrue(true);
     }
 
-//    @Test
-//    void crearCsv1Millon() {
-//        Faker faker = new Faker();
-//        List<String> categorias = Arrays.asList("Electrónica", "Ropa", "Alimentos", "Libros", "Juguetes");
-//        Random random = new Random();
-//
-//        try (FileWriter writer = new FileWriter("datos.csv")) {
-//            // Escribir la fila de encabezado
-//            writer.write("Numero1,Numero2,Numero3,Numero4,Categoria\n");
-//
-//            // Ciclo para generar los datos
-//            for (int i = 1; i <= 1000000; i++) {
-//                int num1 = faker.number().numberBetween(1, 100);
-//                int num2 = faker.number().numberBetween(1, 100);
-//                int num3 = faker.number().numberBetween(1, 100);
-//                int num4 = faker.number().numberBetween(1, 100);
-//                // Seleccionar una categoría aleatoria de la lista
-//                String categoria = categorias.get(random.nextInt(categorias.size()));
-//
-//                writer.write(num1 + "," + num2 + "," + num3 + "," + num4 + "," + categoria + "\n");
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        assertTrue(true);
-//    }
+    @Test
+    void crearCsv1Millon() {
+        Faker faker = new Faker();
+        List<String> categorias = Arrays.asList("Electrónica", "Ropa", "Alimentos", "Libros", "Juguetes");
+        Random random = new Random();
+
+        try (FileWriter writer = new FileWriter("datos.csv")) {
+            // Escribir la fila de encabezado
+            writer.write("Numero1,Numero2,Numero3,Numero4,Categoria\n");
+
+            // Ciclo para generar los datos
+            for (int i = 1; i <= 1000000; i++) {
+                int num1 = faker.number().numberBetween(1, 100);
+                int num2 = faker.number().numberBetween(1, 100);
+                int num3 = faker.number().numberBetween(1, 100);
+                int num4 = faker.number().numberBetween(1, 100);
+                // Seleccionar una categoría aleatoria de la lista
+                String categoria = categorias.get(random.nextInt(categorias.size()));
+
+                writer.write(num1 + "," + num2 + "," + num3 + "," + num4 + "," + categoria + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assertTrue(true);
+    }
 
     @Test
     void obtenerPosicionClasificacion() {

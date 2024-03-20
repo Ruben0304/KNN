@@ -1,5 +1,7 @@
 package ruben.eduardo.knn;
 
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -22,11 +24,17 @@ import ruben.eduardo.knn.services.Clasificador;
 import ruben.eduardo.knn.services.LectorFicheros;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ForkJoinPool;
 
 public class Controlador {
 
 
-
+    @FXML
+    public ProgressIndicator progress;
+    @FXML
+    public ProgressIndicator progressVerde;
     @FXML
     private Pane root;
     @FXML
@@ -49,11 +57,10 @@ public class Controlador {
     private IRegistroNoClasificados registroNoClasificados;
     private Clasificador clasificador;
 
-
+    private int totalElementos = 0;
+    private int elementosProcesados = 0;
     private String direccionArchivoClasificado;
     private String direccionArchivoNoClasificado;
-
-
 
 
     //    AnalizadorKNN analizadorKNN;
@@ -109,7 +116,7 @@ public class Controlador {
         direccionArchivoClasificado = obtenerDireccionArchivo(event);
         btnSelecArchClasificado.setDisable(true);
 
-        if (direccionArchivoClasificado != null && direccionArchivoNoClasificado != null){
+        if (direccionArchivoClasificado != null && direccionArchivoNoClasificado != null) {
             btnEntrenar.setDisable(false);
         }
     }
@@ -119,13 +126,13 @@ public class Controlador {
         direccionArchivoNoClasificado = obtenerDireccionArchivo(event);
         btnSelecArchSinClasif.setDisable(true);
 
-        if (direccionArchivoClasificado != null && direccionArchivoNoClasificado != null){
+        if (direccionArchivoClasificado != null && direccionArchivoNoClasificado != null) {
             btnEntrenar.setDisable(false);
         }
     }
 
 
-    private String obtenerDireccionArchivo (ActionEvent event){
+    private String obtenerDireccionArchivo(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar Archivo");
 
@@ -142,15 +149,10 @@ public class Controlador {
     public void intentarClasificar(ActionEvent event) {
         LectorFicheros lectorFicheros = new LectorFicheros(direccionArchivoNoClasificado);
         registroNoClasificados = new DatosAClasificar(lectorFicheros.leerArchivo());
+
 //        clasificador.clasificarParalelo(registroNoClasificados);
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Clasificación");
-            alert.setHeaderText(null);
-            alert.setContentText(clasificador.clasificarParalelo(registroNoClasificados).toString());
+        iniciarClasificacion();
 
-
-            // Mostrar el diálogo y esperar hasta que el usuario lo cierre
-            alert.showAndWait();
 
 
     }
@@ -164,9 +166,46 @@ public class Controlador {
         clasificador = new Clasificador(registroClasificados);
 
         btnClasificar.setDisable(false);
+        progressVerde.setProgress(1.0);
+
+
+    }
+
+    public void iniciarClasificacion() {
+
+
+        progress.setProgress(0);
+
+        totalElementos = registroNoClasificados.getElementos().size();
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+
+                ConcurrentHashMap<LinkedList<Double>, String> clasificaciones = new ConcurrentHashMap<>();
+                ForkJoinPool customThreadPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
+                customThreadPool.submit(() ->
+                        registroNoClasificados.getElementos().parallelStream().forEach(c -> {
+                            clasificaciones.put(c, clasificador.clasificar(c));
+                            elementosProcesados++;
+                            Platform.runLater(() -> progress.setProgress((double) elementosProcesados / totalElementos));
+
+                        })
+                ).join();
+                return null;
+
+            }
+        };
 
 
 
+        task.setOnSucceeded(e ->{progress.setProgress(1.0); Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Proceso Completado");
+            alert.setHeaderText(null);
+            alert.setContentText("Datos analizados correctamente");
+            alert.showAndWait();} );
+        task.setOnFailed(e -> progress.setProgress(0));
+
+        new Thread(task).start();
     }
 
 //       button2.setOnAction(e -> {
