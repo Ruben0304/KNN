@@ -89,14 +89,20 @@ public class Clasificador implements AnalizadorKNN, IClasificador {
     @Override
     public double calcularDistancia(@NotNull LinkedList<Double> noClasificado, @NotNull LinkedList<Double> clasificado) {
 
-        int size1 = noClasificado.size();
+//        int size1 = noClasificado.size();
         double distancia = 0;
 
-        if (size1 == clasificado.size() && size1==rangoDeDatos.size())
-            for (int i = 0; i < size1; i++)
-                distancia += Math.pow((clasificado.get(i) - noClasificado.get(i)) / rangoDeDatos.get(i),2);
-        else
-            throw new IllegalArgumentException("No coinciden los tamaños de las listas");
+        Iterator<Double> nc = noClasificado.iterator();
+        Iterator<Double> c = clasificado.iterator();
+        Iterator<Double> r = rangoDeDatos.iterator();
+
+        distancia += Math.pow(c.next() - nc.next() / r.next(),2);
+
+//        if (size1 == clasificado.size() && size1==rangoDeDatos.size())
+//            for (int i = 0; i < size1; i++)
+//                distancia += Math.pow((clasificado.get(i) - noClasificado.get(i)) / rangoDeDatos.get(i),2);
+//        else
+//            throw new IllegalArgumentException("No coinciden los tamaños de las listas");
 
         return Math.sqrt(distancia);
     }
