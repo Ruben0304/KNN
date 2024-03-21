@@ -9,6 +9,8 @@ module ruben.eduardo.knn {
     requires eu.hansolo.tilesfx;
     requires org.jetbrains.annotations;
     requires arboles;
+    requires java.desktop;
+    requires datafaker;
 
     opens ruben.eduardo.knn to javafx.fxml;
     exports ruben.eduardo.knn;

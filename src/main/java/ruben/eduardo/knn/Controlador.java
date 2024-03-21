@@ -1,5 +1,8 @@
 package ruben.eduardo.knn;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -19,6 +22,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import ruben.eduardo.knn.interfaces.*;
 import ruben.eduardo.knn.models.*;
 import ruben.eduardo.knn.services.Clasificador;
@@ -27,6 +31,7 @@ import ruben.eduardo.knn.services.LectorFicheros;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Optional;
@@ -128,6 +133,7 @@ public class Controlador {
 
     public void initialize() {
         txtAreaClasifUnEelemnt.setStyle("-fx-control-inner-background: #1c1c1e");
+        addRandomDataToChart();
 
     }
 
@@ -177,9 +183,8 @@ public class Controlador {
     public void intentarClasificar1element(ActionEvent actionEvent) {
         LinkedList<Double> lista = obtenerDatosDelTextArea();
 
-        if (lista!=null) {
+        if (lista != null) {
             String resultadoClasificacion = clasificador.clasificar(lista);
-
 
 
             // Mostrar un Alert con el resultado de la clasificación
@@ -250,7 +255,7 @@ public class Controlador {
         progressVerde.setProgress(1.0);
 
 
-        if (registroClasificados!=null && registroNoClasificados!=null)
+        if (registroClasificados != null && registroNoClasificados != null)
             btnClasificar.setDisable(false);
 
 
@@ -361,7 +366,7 @@ public class Controlador {
 //           File selected = filechooser.showSaveDialog(primaryStage);
 //       });
 
-//       VBox layout = new VBox(btnMatriz);
+    //       VBox layout = new VBox(btnMatriz);
 //       layout.setAlignment(Pos.CENTER);
 //       layout.setSpacing(25);
 //
@@ -441,26 +446,58 @@ public class Controlador {
 //
 //    }
 //
-    private XYChart.Series<Number, Number> addRandomDataToChart() {
-
+    private void addRandomDataToChart() {
+        DatosPrueba datosPrueba = new DatosPrueba();
 
         // Crear la primera serie de datos y agregar tus datos
         XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
         series1.setName("Indicadores");
-        for (Indicador i : Bolsa.getIndicadores()) {
-            XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(i.Momentum, i.MACD);
+
+        for (DatosPrueba.DatoPrueba i : datosPrueba.getClasificados()) {
+            XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(i.x(), i.y());
             Circle circle = new Circle();
-            circle.setRadius(i.RSI * 0.065 );
-            circle.setFill(i.getClasificacion().equals(Clasificacion.Comprar) ? Color.GREEN : (i.getClasificacion().equals(Clasificacion.Vender) ? Color.RED : Color.ORANGE));
+            circle.setRadius(4.8);
+            circle.setFill(i.calificacion().equals("C1") ? Color.GREEN : (i.calificacion().equals("C3") ? Color.RED : Color.ORANGE));
             dataPoint.setNode(circle);
             series1.getData().add(dataPoint);
         }
 
 
-
         scatterChart.getData().addAll(series1);
-        return series1;
+
+      addRandomDataToChart2();
+
+
     }
+
+    private void addRandomDataToChart2() {
+        DatosPrueba datosPrueba = new DatosPrueba();
+        XYChart.Series<Number, Number> series2 = new XYChart.Series<>();
+        series2.setName("prueba");
+
+        // Crea un iterador para tus datos no clasificados
+        Iterator<DatosPrueba.DatoPrueba> iterator = datosPrueba.getNoClasificados().iterator();
+
+        // Crea un Timeline que se repita cada 2.5 segundos
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2.5), event -> {
+            if (iterator.hasNext()) {
+                DatosPrueba.DatoPrueba i = iterator.next();
+                XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(i.x(), i.y());
+                Circle circle = new Circle();
+                circle.setRadius(7);
+                circle.setFill(Color.PINK);
+                dataPoint.setNode(circle);
+                series2.getData().add(dataPoint);
+            }
+        }));
+
+        // Configura el Timeline para repetirse indefinidamente
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+
+        scatterChart.getData().addAll(series2);
+    }
+
 //
 //
 //    private void addAcciontoChart(Accion a , XYChart.Series<Number, Number> serie){

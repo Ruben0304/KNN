@@ -44,6 +44,14 @@ class ClasificadorTest {
         assertTrue(true);
     }
 
+    @Test
+    void calcularDistancia() {
+
+        clasificador.calcularDistancia(registroNoClasificados.getElementos().getFirst(),registro.getElementos().keySet().iterator().next());
+        assertTrue(true);
+    }
+
+
 
 
 

@@ -1,9 +1,10 @@
 package ruben.eduardo.knn.services;
 
-import com.github.javafaker.Faker;
+
 
 
 import cu.edu.cujae.ceis.tree.binary.BinaryTree;
+import net.datafaker.Faker;
 import org.junit.jupiter.api.Test;
 import ruben.eduardo.knn.services.LectorFicheros;
 import ruben.eduardo.knn.interfaces.ILectorFicheros;
