@@ -96,7 +96,7 @@ class CargarDatosTest {
             writer.write("Numero1,Numero2,Numero3,Numero4,Categoria\n");
 
             // Ciclo para generar los datos
-            for (int i = 1; i <= 1000; i++) {
+            for (int i = 1; i <= 60; i++) {
                 int num1 = faker.number().numberBetween(1, 100);
                 int num2 = faker.number().numberBetween(1, 100);
                 int num3 = faker.number().numberBetween(1, 100);
@@ -133,7 +133,7 @@ class CargarDatosTest {
             writer.write("Numero1,Numero2,Numero3,Numero4\n");
 
             // Ciclo para generar los datos
-            for (int i = 1; i <= 1000; i++) {
+            for (int i = 1; i <= 50; i++) {
                 int num1 = faker.number().numberBetween(1, 100);
                 int num2 = faker.number().numberBetween(1, 100);
                 int num3 = faker.number().numberBetween(1, 100);

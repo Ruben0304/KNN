@@ -209,9 +209,9 @@ public class Controlador {
         txtAreaClasifUnEelemnt.setDisable(false);
         btnClasificar1Elemnt.setDisable(false);
 
-        if (direccionArchivoClasificado != null) {
-            btnEntrenar.setDisable(false);
-        }
+//        if (direccionArchivoClasificado != null) {
+//            btnEntrenar.setDisable(false);
+//        }
         if (direccionArchivoClasificado != null && direccionArchivoNoClasificado != null){
             btnMatriz.setDisable(false);
         }
@@ -240,33 +240,47 @@ public class Controlador {
     }
 
     public void intentarClasificar(ActionEvent event) {
-        LectorFicheros lectorFicheros = new LectorFicheros(direccionArchivoNoClasificado);
-        registroNoClasificados = new DatosAClasificar(lectorFicheros.leerArchivo());
+
+        if (direccionArchivoNoClasificado!=null && direccionArchivoClasificado!=null) {
+
+            LectorFicheros lectorFicheros = new LectorFicheros(direccionArchivoNoClasificado);
+            registroNoClasificados = new DatosAClasificar(lectorFicheros.leerArchivo());
 
 //        clasificador.clasificarParalelo(registroNoClasificados);
-        iniciarClasificacion();
+            iniciarClasificacion();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No se han seleccionado los registros");
 
+            alert.showAndWait();
+        }
 
     }
 
     public void intentarEntrenar(ActionEvent event) {
 
-        LectorFicheros lectorFicheros = new LectorFicheros(direccionArchivoClasificado);
+        if (direccionArchivoClasificado != null && direccionArchivoNoClasificado != null) {
+            LectorFicheros lectorFicheros = new LectorFicheros(direccionArchivoClasificado);
 
-        int posicionClasif = lectorFicheros.obtenerPosicionClasificacion();
-        registroClasificados = new DatosEntrenamiento(lectorFicheros.leerArchivo(posicionClasif));
-        clasificador = new Clasificador(registroClasificados);
+            int posicionClasif = lectorFicheros.obtenerPosicionClasificacion();
+            registroClasificados = new DatosEntrenamiento(lectorFicheros.leerArchivo(posicionClasif));
+            clasificador = new Clasificador(registroClasificados);
 
-        btnClasificar1Elemnt.setDisable(false);
-        btnMatriz.setDisable(false);
-        progressVerde.setProgress(1.0);
-
-
-        if (registroClasificados != null && registroNoClasificados != null) {
-            btnClasificar.setDisable(false);
-
+            btnClasificar1Elemnt.setDisable(false);
+            btnMatriz.setDisable(false);
+            progressVerde.setProgress(1.0);
         }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No se han seleccionado los registros");
 
+            alert.showAndWait();
+        }
 
     }
 
@@ -528,6 +542,8 @@ public class Controlador {
             // Guardar la matriz en un archivo binario
             guardarMatrizEnFichero(matrizDistancia, "matrizDistancia.bin");
 
+            imprimirMatriz(matrizDistancia);
+
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Información");
             alert.setHeaderText(null);
@@ -561,6 +577,17 @@ public class Controlador {
             e.printStackTrace();
         }
     }
+
+    public void imprimirMatriz(double[][] matrizDistancia) {
+        for (int i = 0; i < matrizDistancia.length; i++) {
+            for (int j = 0; j < matrizDistancia[i].length; j++) {
+                System.out.printf("%.2f ", matrizDistancia[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+
 
 
 //
