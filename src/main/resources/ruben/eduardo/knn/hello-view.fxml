@@ -17,7 +17,7 @@
       <Pane layoutX="48.0" layoutY="549.0" prefHeight="154.0" prefWidth="435.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
          <children>
             <Label layoutX="180.0" layoutY="24.0" prefHeight="20.0" prefWidth="60.0" text="Adicional" />
-            <Button fx:id="btnMatriz" layoutX="263.0" layoutY="78.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Generar" />
+            <Button fx:id="btnMatriz" disable="true" layoutX="263.0" layoutY="78.0" mnemonicParsing="false" onAction="#generarMatrizDistancia" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Generar" />
             <Label layoutX="48.0" layoutY="82.0" prefHeight="25.0" prefWidth="192.0" text="Generar matriz de distancia :" />
          </children>
       </Pane>

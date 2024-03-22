@@ -31,13 +31,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\src\main\resources\ruben\eduardo\knn\Data\datos.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\src\main\resources\ruben\eduardo\knn\Data\datosNC.csv">
           <value>
             <Attribute>
