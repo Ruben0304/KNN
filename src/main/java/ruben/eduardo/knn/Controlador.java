@@ -26,22 +26,24 @@ import javafx.util.Duration;
 import ruben.eduardo.knn.interfaces.*;
 import ruben.eduardo.knn.models.*;
 import ruben.eduardo.knn.services.Clasificador;
+import ruben.eduardo.knn.services.GeneradorMatrices;
 import ruben.eduardo.knn.services.LectorFicheros;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
 import java.awt.Desktop;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import java.util.Optional;
 public class Controlador {
 
 
@@ -51,6 +53,7 @@ public class Controlador {
     public ProgressIndicator progressVerde;
     public TextArea txtAreaClasifUnEelemnt;
     public Button btnClasificar1Elemnt;
+    public Button btnMatriz;
     @FXML
     private Pane root;
     @FXML
@@ -209,6 +212,9 @@ public class Controlador {
         if (direccionArchivoClasificado != null) {
             btnEntrenar.setDisable(false);
         }
+        if (direccionArchivoClasificado != null && direccionArchivoNoClasificado != null){
+            btnMatriz.setDisable(false);
+        }
 
     }
 
@@ -252,17 +258,19 @@ public class Controlador {
         clasificador = new Clasificador(registroClasificados);
 
         btnClasificar1Elemnt.setDisable(false);
+        btnMatriz.setDisable(false);
         progressVerde.setProgress(1.0);
 
 
-        if (registroClasificados != null && registroNoClasificados != null)
+        if (registroClasificados != null && registroNoClasificados != null) {
             btnClasificar.setDisable(false);
+
+        }
 
 
     }
 
     public void iniciarClasificacion() {
-
 
         progress.setProgress(0);
 
@@ -465,7 +473,7 @@ public class Controlador {
 
         scatterChart.getData().addAll(series1);
 
-      addRandomDataToChart2();
+        addRandomDataToChart2();
 
 
     }
@@ -497,6 +505,63 @@ public class Controlador {
 
         scatterChart.getData().addAll(series2);
     }
+
+
+    public void generarMatrizDistancia(ActionEvent actionEvent) {
+
+        if (direccionArchivoClasificado != null && direccionArchivoNoClasificado != null) {
+
+            AnalizadorKNN analizadorKNN = clasificador;
+
+            GeneradorMatrices generadorMatrices = new GeneradorMatrices(analizadorKNN);
+
+            LectorFicheros lectorFicherosClasif = new LectorFicheros(direccionArchivoClasificado);
+            LectorFicheros lectorFicherosNoClasif = new LectorFicheros(direccionArchivoNoClasificado);
+
+
+            int posiClas = lectorFicherosClasif.obtenerPosicionClasificacion();
+            HashMap<LinkedList<Double>, String> elementosC = lectorFicherosClasif.leerArchivo(posiClas);
+            LinkedList<LinkedList<Double>> elementosNC = lectorFicherosNoClasif.leerArchivo();
+
+            double[][] matrizDistancia = generadorMatrices.generarMatriz(elementosC, elementosNC);
+
+            // Guardar la matriz en un archivo binario
+            guardarMatrizEnFichero(matrizDistancia, "matrizDistancia.bin");
+
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Información");
+            alert.setHeaderText(null);
+            alert.setContentText("Matriz generada correctamente");
+
+            ButtonType buttonTypeVer = new ButtonType("Ver matriz", ButtonData.YES);
+            ButtonType buttonTypeCerrar = new ButtonType("Cerrar", ButtonData.NO);
+            alert.getButtonTypes().setAll(buttonTypeVer, buttonTypeCerrar);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonTypeVer) {
+                // Aquí puedes abrir el archivo binario para ver la matriz
+                try {
+                    Desktop.getDesktop().open(new File("matrizDistancia.bin"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    public void guardarMatrizEnFichero(double[][] matriz, String nombreArchivo) {
+        try {
+            FileOutputStream fos = new FileOutputStream(nombreArchivo);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(matriz);
+
+            oos.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 //
 //

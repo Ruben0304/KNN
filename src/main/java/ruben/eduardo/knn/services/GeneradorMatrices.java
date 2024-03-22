@@ -2,33 +2,48 @@ package ruben.eduardo.knn.services;
 
 import ruben.eduardo.knn.interfaces.AnalizadorKNN;
 import ruben.eduardo.knn.interfaces.IGeneradorMatrices;
+import ruben.eduardo.knn.models.DatosEntrenamiento;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Set;
 
 public class GeneradorMatrices  {
 
-//    private final AnalizadorKNN analizadorKNN;
-//    public GeneradorMatrices(AnalizadorKNN analizadorKNN) {
-//        this.analizadorKNN = analizadorKNN;
-//    }
-//
-//    public double[][] generarMatriz() {
-//        int n = Bolsa.getIndicadores().size();
-//        int n2 = Bolsa.getAcciones().size();
-//        double[][] matrizDistancia = new double[n2][n];
-//
-//        for (int i = 0; i < n2; i++) {
-//            for (int j = 0; j < n; j++) {
-//                double distancia = analizadorKNN.calcularDistancia(Bolsa.getAcciones().get(i).getIndicador(), Bolsa.getIndicadores().get(j));
-//                matrizDistancia[i][j] = distancia;
-//            }
-//        }
-//
-//        return matrizDistancia;
-//    }
-//
+    private final AnalizadorKNN analizadorKNN;
+    public GeneradorMatrices(AnalizadorKNN analizadorKNN) {
+        this.analizadorKNN = analizadorKNN;
+    }
+
+    public double[][] generarMatriz(HashMap<LinkedList<Double>,String> elementosC, LinkedList<LinkedList<Double>> elementosNC) {
+        int nNOClasif = elementosNC.size();
+        Set<LinkedList<Double>> clavesClasif = elementosC.keySet();
+        int nClasif = clavesClasif.size();
+        double[][] matrizDistancia = new double[nClasif][nNOClasif];
+
+        Iterator<LinkedList<Double>> itClasif = clavesClasif.iterator();
+        int i = 0;
+        while (itClasif.hasNext()) {
+            LinkedList<Double> clasificado = itClasif.next();
+            Iterator<LinkedList<Double>> itNOClasif = elementosNC.iterator();
+            int j = 0;
+            while (itNOClasif.hasNext()) {
+                LinkedList<Double> noClasificado = itNOClasif.next();
+                double distancia = analizadorKNN.calcularDistancia(noClasificado, clasificado);
+                matrizDistancia[i][j] = distancia;
+                j++;
+            }
+            i++;
+        }
+
+        return matrizDistancia;
+    }
+
+
 //
 //    public void escribirMatrizEnFichero(double[][] matriz) {
 //        try {
