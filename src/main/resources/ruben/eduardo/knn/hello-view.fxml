@@ -52,8 +52,8 @@
          <children>
             <Button fx:id="btnSelecArchClasificado" layoutX="122.0" layoutY="306.0" mnemonicParsing="false" onAction="#handleOpenFileActionArchClasific" prefHeight="33.0" prefWidth="192.0" styleClass="accent" text="Añadir archivo clasificado" />
             <Button fx:id="btnSelecArchSinClasif" layoutX="117.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleOpenFileActionArchNoClasific" prefHeight="33.0" prefWidth="202.0" styleClass="accent" text="Añadir archivo para clasificar" />
-            <Button fx:id="btnClasificar" disable="true" layoutX="243.0" layoutY="405.0" mnemonicParsing="false" onAction="#intentarClasificar" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Clasificar" />
-            <Button fx:id="btnEntrenar" disable="true" layoutX="98.0" layoutY="405.0" mnemonicParsing="false" onAction="#intentarEntrenar" prefHeight="33.0" prefWidth="102.0" styleClass="success" text="Entrenar" />
+            <Button fx:id="btnClasificar" layoutX="243.0" layoutY="405.0" mnemonicParsing="false" onAction="#intentarClasificar" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Clasificar" />
+            <Button fx:id="btnEntrenar" layoutX="98.0" layoutY="405.0" mnemonicParsing="false" onAction="#intentarEntrenar" prefHeight="33.0" prefWidth="102.0" styleClass="success" text="Entrenar" />
             <ProgressIndicator fx:id="progress" layoutX="367.0" layoutY="407.0" prefHeight="47.0" prefWidth="26.0" progress="0.0" />
             <ProgressIndicator id="ioio" fx:id="progressVerde" layoutX="55.0" layoutY="407.0" prefHeight="47.0" prefWidth="26.0" progress="0.0" />
             <TextArea fx:id="txtAreaClasifUnEelemnt" disable="true" layoutX="66.0" layoutY="23.0" prefHeight="87.0" prefWidth="304.0" promptText=" escriba datos separados por coma para clasificar un elemento" styleClass="success">

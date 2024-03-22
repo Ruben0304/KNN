@@ -2,24 +2,30 @@ package ruben.eduardo.knn.services;
 
 import org.junit.jupiter.api.Test;
 import ruben.eduardo.knn.avl.AvlTree;
+import ruben.eduardo.knn.interfaces.AnalizadorKNN;
 import ruben.eduardo.knn.interfaces.ILectorFicheros;
 import ruben.eduardo.knn.interfaces.IRegistroClasificados;
 import ruben.eduardo.knn.interfaces.IRegistroNoClasificados;
 import ruben.eduardo.knn.models.DatosAClasificar;
 import ruben.eduardo.knn.models.DatosEntrenamiento;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClasificadorTest {
 
-    private final ILectorFicheros c = new LectorFicheros("D:/Proyectos/Java/Escuela/KNN/src/main/resources/ruben/eduardo/knn/Data/datos.csv");
+    private final ILectorFicheros c = new LectorFicheros("C:/Users/Usuario/IdeaProjects/KNN/src/main/resources/ruben/eduardo/knn/Data/datosC.csv");
 
-    private final ILectorFicheros cnc = new LectorFicheros("D:/Proyectos/Java/Escuela/KNN/src/main/resources/ruben/eduardo/knn/Data/datosNC.csv");
+    private final ILectorFicheros cnc = new LectorFicheros("C:/Users/Usuario/IdeaProjects/KNN/src/main/resources/ruben/eduardo/knn/Data/datosNC.csv");
     private final IRegistroNoClasificados registroNoClasificados = new DatosAClasificar(cnc.leerArchivo());
 
     private final IRegistroClasificados registro = new DatosEntrenamiento(c.leerArchivo( 4));
 
     private final Clasificador clasificador = new Clasificador(registro);
+
+    private final AnalizadorKNN analizadorKNN = clasificador;
+    private final GeneradorMatrices g = new GeneradorMatrices(analizadorKNN);
 
 //    @Test
 //    void calcularRangoDeDatos() {
@@ -49,6 +55,13 @@ class ClasificadorTest {
 
         clasificador.calcularDistancia(registroNoClasificados.getElementos().getFirst(),registro.getElementos().keySet().iterator().next());
         assertTrue(true);
+    }
+
+    @Test
+    void generarMatriz(){
+        double[][] matriz = g.generarMatriz(registro.getElementos(), registroNoClasificados.getElementos());
+
+        assertEquals(50*60, matriz.length*matriz[0].length);
     }
 
 
