@@ -38,13 +38,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\src\main\resources\ruben\eduardo\knn\Data\acciones.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\src\main\resources\ruben\eduardo\knn\Data\clasificado.csv">
           <value>
             <Attribute>
@@ -52,28 +45,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\src\main\resources\ruben\eduardo\knn\Data\datosC.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\src\main\resources\ruben\eduardo\knn\Data\datosNC.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\src\main\resources\ruben\eduardo\knn\Data\fulbonc.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\src\main\resources\ruben\eduardo\knn\Data\indicadores.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
