@@ -12,7 +12,7 @@ import java.util.concurrent.ForkJoinPool;
 
 public abstract class Clasificador implements AnalizadorKNN, IClasificador {
 
-    protected ArrayList<Double> rangoDeDatos;
+    protected LinkedList<Double> rangoDeDatos;
 
 
     protected final IRegistroClasificados registroClasificados;
@@ -23,11 +23,11 @@ public abstract class Clasificador implements AnalizadorKNN, IClasificador {
     }
 
     @Override
-    public ArrayList<Double> calcularRangoDeDatos(@NotNull Set<LinkedList<Double>> datosClasificados) {
+    public LinkedList<Double> calcularRangoDeDatos(@NotNull Set<LinkedList<Double>> datosClasificados) {
 
 
         // guardar rango de cada columna, para normailizar los datos
-        ArrayList<Double> rangos = new ArrayList<>();
+        LinkedList<Double> rangos = new LinkedList<>();
         int numColumnas = datosClasificados.iterator().next().size();
 
         // 🥵🥵🥵
@@ -45,7 +45,7 @@ public abstract class Clasificador implements AnalizadorKNN, IClasificador {
                     .min()
                     .orElseThrow(NoSuchElementException::new);
 
-            rangos.add(max - min);
+            rangos.addLast(max - min);
         }
 
 
