@@ -10,10 +10,7 @@ public class ClasificadorQeue extends Clasificador{
         super(registroClasificados);
     }
 
-    public PriorityQueue<Map.Entry<String, Double>> obtenerVecinos(
-            HashMap<LinkedList<Double>, String> clasificados,
-            LinkedList<Double> noClasificados
-    ) {
+    public PriorityQueue<Map.Entry<String, Double>> obtenerVecinos(HashMap<LinkedList<Double>, String> clasificados, LinkedList<Double> noClasificados) {
         // Crear la PriorityQueue con un comparador que ordene las entradas por distancia
         PriorityQueue<Map.Entry<String, Double>> colaPrioridad = new PriorityQueue<>(
                 Comparator.comparingDouble(Map.Entry<String, Double>::getValue)
