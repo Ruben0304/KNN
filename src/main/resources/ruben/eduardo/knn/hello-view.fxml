@@ -56,7 +56,7 @@
          <children>
             <Button fx:id="btnSelecArchClasificado" layoutX="36.0" layoutY="87.0" mnemonicParsing="false" onAction="#handleOpenFileActionArchClasific" prefHeight="33.0" prefWidth="202.0" styleClass="accent" text="Añadir archivo clasificado" />
             <Button fx:id="btnSelecArchSinClasif" layoutX="313.0" layoutY="87.0" mnemonicParsing="false" onAction="#handleOpenFileActionArchNoClasific" prefHeight="33.0" prefWidth="202.0" styleClass="accent" text="Añadir archivo para clasificar" />
-            <Button fx:id="btnClasificar" layoutX="599.0" layoutY="146.0" mnemonicParsing="false" onAction="#intentarClasificar" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Clasificar" />
+            <Button fx:id="btnClasificar" layoutX="319.0" layoutY="146.0" mnemonicParsing="false" onAction="#intentarClasificar" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Clasificar" />
             <Button fx:id="btnEntrenar" layoutX="36.0" layoutY="146.0" mnemonicParsing="false" onAction="#intentarEntrenar" prefHeight="33.0" prefWidth="136.0" styleClass="success" text="Normalizar Datos" />
             <ProgressIndicator fx:id="progress" layoutX="442.0" layoutY="146.0" prefHeight="47.0" prefWidth="26.0" progress="0.0" />
             <ProgressIndicator id="ioio" fx:id="progressVerde" layoutX="195.0" layoutY="146.0" prefHeight="47.0" prefWidth="26.0" progress="0.0" />
@@ -65,7 +65,7 @@
                   <Insets />
                </opaqueInsets>
             </TextArea>
-            <Button fx:id="btnClasificar1Elemnt" layoutX="325.0" layoutY="146.0" mnemonicParsing="false" onAction="#intentarClasificar1element" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Clasificar" />
+            <Button fx:id="btnClasificar1Elemnt" layoutX="612.0" layoutY="153.0" mnemonicParsing="false" onAction="#intentarClasificar1element" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Clasificar" />
             <Label layoutX="386.0" layoutY="62.0" text="Opción 1" />
             <Label layoutX="688.0" layoutY="59.0" text="Opción 2" />
             <Label layoutX="515.0" layoutY="14.0" text="Paso 2">

@@ -19,6 +19,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import ruben.eduardo.knn.clasificadores.Clasificador;
+import ruben.eduardo.knn.clasificadores.ClasificadorQeue;
 import ruben.eduardo.knn.interfaces.*;
 import ruben.eduardo.knn.modelos.*;
 import ruben.eduardo.knn.clasificadores.ClasificadorLista;
@@ -78,7 +79,7 @@ public class Controlador {
     private Clasificador clasificador;
 
     private IGeneradorMatrices generadorMatrices;
-    private IGeneradorFicheros generadorFicheros;
+
 
     private int totalElementos = 0;
     private int elementosProcesados = 0;
@@ -149,7 +150,7 @@ public class Controlador {
 
             int posicionClasif = lectorFicheros.obtenerPosicionClasificacion();
             registroClasificados = new DatosEntrenamiento(lectorFicheros.leerArchivo(posicionClasif));
-            clasificador = new ClasificadorLista(registroClasificados);
+            clasificador = new ClasificadorQeue(registroClasificados);
 
             btnClasificar1Elemnt.setDisable(false);
             btnMatriz.setDisable(false);
@@ -161,12 +162,12 @@ public class Controlador {
 
     }
 
-    public void iniciarClasificacion() {
+    private void iniciarClasificacion() {
 
         progress.setProgress(0);
         clasificador.setK(spinnerK.getValue());
         totalElementos = registroNoClasificados.getElementos().size();
-        Task<ConcurrentHashMap<LinkedList<Double>, String>> task = new Task<ConcurrentHashMap<LinkedList<Double>, String>>() {
+        Task<ConcurrentHashMap<LinkedList<Double>, String>> task = new Task<>() {
             @Override
             protected ConcurrentHashMap<LinkedList<Double>, String> call() throws Exception {
 
@@ -188,6 +189,7 @@ public class Controlador {
 
         task.setOnSucceeded(e -> {
             progress.setProgress(1.0);
+            IGeneradorFicheros generadorFicheros = new GeneradorFicheros();
             generadorFicheros.exportarClasificacionesACsv(task.getValue(),"ResultadoClasificacion.csv");
            Alertas.resultadoClasificacionConjunto();
         });
@@ -207,7 +209,7 @@ public class Controlador {
         double[][] matrizDistancia = generadorMatrices.generarMatriz(elementosC, elementosNC);
 
         // Guardar la matriz en un archivo binario
-        generadorFicheros = new GeneradorFicheros();
+        IGeneradorFicheros generadorFicheros = new GeneradorFicheros();
         generadorFicheros.exportarMatrizArchivoBinario(matrizDistancia, "matrizDistancia.bin");
 
         generadorMatrices.imprimirMatrizEnConsola(matrizDistancia);
