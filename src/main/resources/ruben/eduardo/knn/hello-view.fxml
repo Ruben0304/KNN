@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="root" maxHeight="-Infinity" maxWidth="1521.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1013.0" style="-fx-background-color: #0B0B0C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ruben.eduardo.knn.visual.Controlador">
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="1521.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1013.0" style="-fx-background-color: #0B0B0C;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ruben.eduardo.knn.visual.Controlador">
    <children>
       <Pane layoutX="80.0" layoutY="267.0" prefHeight="465.0" prefWidth="231.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
          <children>
