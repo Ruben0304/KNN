@@ -16,12 +16,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AverQuienLoHAceMasRapidoTest {
 
-    private final ILectorFicheros c = new LectorFicheros("indicadores.csv");
+    private final ILectorFicheros c = new LectorFicheros("datosC.csv");
 
-    private final ILectorFicheros cnc = new LectorFicheros("acciones.csv");
+    private final ILectorFicheros cnc = new LectorFicheros("datosNC.csv");
     private final IRegistroNoClasificados registroNoClasificados = new DatosAClasificar(cnc.leerArchivo());
 
-    private final IRegistroClasificados registro = new DatosEntrenamiento(c.leerArchivo(3));
+    private final IRegistroClasificados registro = new DatosEntrenamiento(c.leerArchivo(4));
 
     private IClasificador clasificador;
 
