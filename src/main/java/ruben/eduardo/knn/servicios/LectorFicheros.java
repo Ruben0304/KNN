@@ -2,10 +2,13 @@ package ruben.eduardo.knn.servicios;
 
 import ruben.eduardo.knn.interfaces.ILectorFicheros;
 
+import java.awt.*;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class LectorFicheros implements ILectorFicheros {
 
@@ -93,6 +96,15 @@ public class LectorFicheros implements ILectorFicheros {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    public static void mostrarClasificacionesComoCsv() {
+
+        try {
+            Desktop.getDesktop().open(new File("clasificado.csv"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
 }

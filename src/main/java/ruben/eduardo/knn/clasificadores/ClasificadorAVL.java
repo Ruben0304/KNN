@@ -33,19 +33,19 @@ public class ClasificadorAVL extends Clasificador{
         TreeMap<String, Integer> frecuencia = new TreeMap<>();
         int vecinosContados = 0;
 
-        while (iterador.hasNext() && vecinosContados < 5) {
+        while (iterador.hasNext() && vecinosContados < this.k) {
             DistanciaAClasificacion nodo = iterador.next();
             String clave = nodo.distancia().getKey();
             int contadorNodo = nodo.contador(); // El contador está en DistanciaAClasificacion
 
-            // Calcular cuántos vecinos más podemos contar sin exceder el límite de 5
-            int vecinosParaAgregar = Math.min(contadorNodo, 5 - vecinosContados);
+            // Calcular cuántos vecinos más podemos contar sin exceder el límite de k
+            int vecinosParaAgregar = Math.min(contadorNodo, this.k - vecinosContados);
 
             frecuencia.put(clave, frecuencia.getOrDefault(clave, 0) + vecinosParaAgregar);
             vecinosContados += vecinosParaAgregar;
 
             // Si alcanzamos el límite de vecinos, salimos del bucle
-            if (vecinosContados >= 5) {
+            if (vecinosContados >= this.k) {
                 break;
             }
         }

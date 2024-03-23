@@ -1,20 +1,27 @@
 package ruben.eduardo.knn.servicios;
 
-import ruben.eduardo.knn.interfaces.AnalizadorKNN;
+import javafx.event.ActionEvent;
+import ruben.eduardo.knn.interfaces.*;
+import ruben.eduardo.knn.visual.componentes.Alertas;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
 
-public class GeneradorMatrices  {
+public class GeneradorMatrices implements IGeneradorMatrices {
 
     private final AnalizadorKNN analizadorKNN;
+
+
     public GeneradorMatrices(AnalizadorKNN analizadorKNN) {
         this.analizadorKNN = analizadorKNN;
     }
 
-    public double[][] generarMatriz(HashMap<LinkedList<Double>,String> elementosC, LinkedList<LinkedList<Double>> elementosNC) {
+    public double[][] generarMatriz(HashMap<LinkedList<Double>, String> elementosC, LinkedList<LinkedList<Double>> elementosNC) {
         int nNOClasif = elementosNC.size();
         Set<LinkedList<Double>> clavesClasif = elementosC.keySet();
         int nClasif = clavesClasif.size();
@@ -39,29 +46,19 @@ public class GeneradorMatrices  {
     }
 
 
-//
-//    public void escribirMatrizEnFichero(double[][] matriz) {
-//        try {
-//            FileOutputStream fos = new FileOutputStream("matrizDistancia.txt");
-//            ObjectOutputStream oos = new ObjectOutputStream(fos);
-//
-//            // Escribir las dimensiones de la matriz
-//            oos.writeInt(matriz.length); // Número de filas
-//            oos.writeInt(matriz[0].length); // Número de columnas
-//
-//            // Escribir los elementos de la matriz
-//            for (int i = 0; i < matriz.length; i++) {
-//                for (int j = 0; j < matriz[i].length; j++) {
-//                    oos.writeDouble(matriz[i][j]);
-//                }
-//            }
-//
-//            oos.close();
-//            fos.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
-//
-//    }
+
+    public void imprimirMatrizEnConsola(double[][] matrizDistancia) {
+        for (int i = 0; i < matrizDistancia.length; i++) {
+
+            for (int j = 0; j < matrizDistancia[i].length; j++)
+                System.out.printf("%.2f ", matrizDistancia[i][j]);
+
+            System.out.println(" ");
+        }
+    }
 }
+
+
+
+

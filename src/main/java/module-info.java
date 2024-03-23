@@ -16,4 +16,8 @@ module ruben.eduardo.knn {
     exports ruben.eduardo.knn;
     exports ruben.eduardo.knn.servicios;
     opens ruben.eduardo.knn.servicios to javafx.fxml;
+    exports ruben.eduardo.knn.visual;
+    opens ruben.eduardo.knn.visual to javafx.fxml;
+    exports ruben.eduardo.knn.visual.componentes;
+    opens ruben.eduardo.knn.visual.componentes to javafx.fxml;
 }

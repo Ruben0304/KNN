@@ -38,7 +38,7 @@ public class ClasificadorQeue extends Clasificador{
         Map<String, Integer> frecuencia = new HashMap<>();
 
         // Asegurarse de que hay al menos K vecinos
-        int k = Math.min(kVecinos.size(), 5);
+        int k = Math.min(kVecinos.size(), this.k);
         for (int i = 0; i < k; i++) {
             Map.Entry<String, Double> vecino = kVecinos.poll();
             if (vecino != null) {

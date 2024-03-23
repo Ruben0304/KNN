@@ -14,7 +14,7 @@ public abstract class Clasificador implements AnalizadorKNN, IClasificador {
 
     protected LinkedList<Double> rangoDeDatos;
 
-
+    protected int k = 5;
     protected final IRegistroClasificados registroClasificados;
 
     public Clasificador(IRegistroClasificados registroClasificados) {
@@ -30,7 +30,6 @@ public abstract class Clasificador implements AnalizadorKNN, IClasificador {
         LinkedList<Double> rangos = new LinkedList<>();
         int numColumnas = datosClasificados.iterator().next().size();
 
-        // 🥵🥵🥵
 
         for (int i = 0; i < numColumnas; i++) {
             int columna = i;
@@ -88,4 +87,8 @@ public abstract class Clasificador implements AnalizadorKNN, IClasificador {
         return clasificaciones;
     }
 
+    @Override
+    public void setK(int k){
+        this.k = k;
+    }
 }

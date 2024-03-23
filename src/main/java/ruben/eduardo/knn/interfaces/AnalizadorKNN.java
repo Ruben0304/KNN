@@ -13,6 +13,8 @@ public interface AnalizadorKNN {
     LinkedList<Double> calcularRangoDeDatos(Set<LinkedList<Double>> datosClasificados);
     double calcularDistancia(@NotNull LinkedList<Double> noClasificado, @NotNull LinkedList<Double> clasificado);
 
+    void setK(int k);
+
 
 
 

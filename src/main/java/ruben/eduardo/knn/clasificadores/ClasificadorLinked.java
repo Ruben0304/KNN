@@ -31,7 +31,7 @@ public class ClasificadorLinked extends Clasificador{
 
         Map<String, Integer> frecuencia = new HashMap<>();
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < this.k; i++)
             frecuencia.put(kVecinos.get(i).getKey(), frecuencia.getOrDefault(kVecinos.get(i).getKey(), 0) + 1);
 
         return Collections.max(frecuencia.entrySet(), Map.Entry.comparingByValue()).getKey();
