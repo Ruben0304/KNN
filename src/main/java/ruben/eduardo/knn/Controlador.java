@@ -7,27 +7,23 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.util.Duration;
+import ruben.eduardo.knn.clasificadores.Clasificador;
 import ruben.eduardo.knn.interfaces.*;
-import ruben.eduardo.knn.models.*;
-import ruben.eduardo.knn.services.Clasificador;
-import ruben.eduardo.knn.services.GeneradorMatrices;
-import ruben.eduardo.knn.services.LectorFicheros;
+import ruben.eduardo.knn.modelos.*;
+import ruben.eduardo.knn.clasificadores.ClasificadorLista;
+import ruben.eduardo.knn.servicios.GeneradorMatrices;
+import ruben.eduardo.knn.servicios.LectorFicheros;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -38,7 +34,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
 import java.awt.Desktop;
 import java.util.stream.Stream;
-import javax.swing.JOptionPane;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
@@ -136,6 +132,8 @@ public class Controlador {
 
     public void initialize() {
         txtAreaClasifUnEelemnt.setStyle("-fx-control-inner-background: #1c1c1e");
+        btnClasificar.setDisable(false);
+        btnClasificar1Elemnt.setDisable(false);
         addRandomDataToChart();
 
     }
@@ -225,6 +223,19 @@ public class Controlador {
     }
 
 
+    private String obtenerCarpeta(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleccionar Carpeta");
+
+//        fileChooser.getExtensionFilters().addAll(
+//                new FileChooser.ExtensionFilter("CSV", "*.csv")
+//        );
+
+        File selectedFile = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+
+
+        return selectedFile.getAbsolutePath();
+    }
     private String obtenerDireccionArchivo(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar Archivo");
@@ -262,12 +273,12 @@ public class Controlador {
 
     public void intentarEntrenar(ActionEvent event) {
 
-        if (direccionArchivoClasificado != null && direccionArchivoNoClasificado != null) {
+        if (direccionArchivoClasificado != null) {
             LectorFicheros lectorFicheros = new LectorFicheros(direccionArchivoClasificado);
 
             int posicionClasif = lectorFicheros.obtenerPosicionClasificacion();
             registroClasificados = new DatosEntrenamiento(lectorFicheros.leerArchivo(posicionClasif));
-            clasificador = new Clasificador(registroClasificados);
+            clasificador = new ClasificadorLista(registroClasificados);
 
             btnClasificar1Elemnt.setDisable(false);
             btnMatriz.setDisable(false);
@@ -314,7 +325,8 @@ public class Controlador {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Proceso Completado");
             alert.setHeaderText(null);
-            alert.setContentText("Datos analizados correctamente");
+            alert.setContentText("Datos clasificados correctamente");
+
 
 
             ButtonType verCsvButtonType = new ButtonType("Ver CSV");
@@ -323,7 +335,7 @@ public class Controlador {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == verCsvButtonType) {
 
-                mostrarClasificacionesComoCsv(task.getValue());
+             mostrarClasificacionesComoCsv(task.getValue());
             }
         });
         task.setOnFailed(e -> progress.setProgress(0));
@@ -337,16 +349,17 @@ public class Controlador {
 
         // abrir el archivo con la aplicación predeterminada del sistema
         try {
-            Desktop.getDesktop().open(new File("C:/Users/Usuario/IdeaProjects/KNN/src/main/resources/ruben/eduardo/knn/Data/clasificado.csv"));
+            Desktop.getDesktop().open(new File("clasificado.csv"));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     private void exportarClasificacionesACsv(ConcurrentHashMap<LinkedList<Double>, String> clasificaciones) {
+
         StringBuilder csvBuilder = new StringBuilder();
         // Definir el encabezado del CSV
-        try (Stream<String> lines = Files.lines(Paths.get(direccionArchivoClasificado))) {
+        try (Stream<String> lines = Files.lines(Paths.get("clasificado.csv"))) {
             String header = lines.findFirst().orElse("");
             csvBuilder.append(header).append("\n");
         } catch (IOException e) {
@@ -367,7 +380,7 @@ public class Controlador {
         }
 
         // Escribir el contenido del StringBuilder en un archivo CSV
-        try (PrintWriter out = new PrintWriter("C:/Users/Usuario/IdeaProjects/KNN/src/main/resources/ruben/eduardo/knn/Data/clasificado.csv")) {
+        try (PrintWriter out = new PrintWriter("clasificado.csv")) {
             out.println(csvBuilder.toString());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -382,92 +395,7 @@ public class Controlador {
     }
 
 
-//       button2.setOnAction(e -> {
-//           FileChooser filechooser = new FileChooser();
-//           filechooser.setTitle("Save File");
-//           File selected = filechooser.showSaveDialog(primaryStage);
-//       });
 
-    //       VBox layout = new VBox(btnMatriz);
-//       layout.setAlignment(Pos.CENTER);
-//       layout.setSpacing(25);
-//
-//   }
-//        XYChart.Series<Number, Number> series1 = addRandomDataToChart();
-//        ButtonAccion.setOnAction(event -> {
-//            Double mo = Double.parseDouble(Momentum.getText()) ;
-//            Double ma = Double.parseDouble(macd.getText()) ;
-//            Double rs = Double.parseDouble(rsi.getText()) ;
-//            Accion a = new Accion("prueba",123.0, new Indicador(mo,rs,ma,null));
-//            a.getIndicador().setClasificacion(analizadorKNN.clasificarAccion(a));
-//            // Crear un nuevo diálogo de alerta
-//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//            alert.setTitle("Clasificación");
-//            alert.setHeaderText(null);
-//            alert.setContentText(a.getIndicador().getClasificacion().toString());
-//
-//            addAcciontoChart(a, series1);
-//            // Mostrar el diálogo y esperar hasta que el usuario lo cierre
-//            alert.showAndWait();
-//        });
-//
-//        btnMatriz.setOnAction(event ->{
-//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//            alert.setTitle("");
-//            alert.setHeaderText(null);
-//            generadorMatrices.escribirMatrizEnFichero(generadorMatrices.generarMatriz());
-//            alert.setContentText("Matriz generada corractamente");
-//            alert.showAndWait();
-//        });
-//
-//
-//
-//        for (Accion a : Bolsa.getAcciones()) {
-//            a.getIndicador().setClasificacion(analizadorKNN.clasificarAccion(a));
-//            Clasificacion c = a.getIndicador().getClasificacion();
-//            String clase;
-//            switch (c) {
-//                case Comprar:
-//                    clase = "success";
-//                    break;
-//                case Vender:
-//                    clase = "danger";
-//                    break;
-//                default:
-//                    clase = "warning";
-//                    break;
-//            }
-//
-//            switch (a.getNombre()) {
-//                case "AAPL":
-//                    lblApple.getStyleClass().add(clase);
-//                    lblApple.setText(c.toString());
-//                    break;
-//                case "BTC":
-//                    lblBtc.getStyleClass().add(clase);
-//                    lblBtc.setText(c.toString());
-//                    break;
-//                case "NFLX":
-//                    lblNetflix.getStyleClass().add(clase);
-//                    lblNetflix.setText(c.toString());
-//                    break;
-//                case "AMZN":
-//                    lblAmazon.getStyleClass().add(clase);
-//                    lblAmazon.setText(c.toString());
-//                    break;
-//                case "TSLA":
-//                    lblTesla.getStyleClass().add(clase);
-//                    lblTesla.setText(c.toString());
-//                    break;
-//                default:
-//                    // Manejar cualquier acción no especificada aquí
-//                    break;
-//            }
-//            addAcciontoChart(a, series1);
-//        }
-//
-//    }
-//
     private void addRandomDataToChart() {
         DatosPrueba datosPrueba = new DatosPrueba();
 
@@ -566,10 +494,19 @@ public class Controlador {
     }
     public void guardarMatrizEnFichero(double[][] matriz, String nombreArchivo) {
         try {
-            FileOutputStream fos = new FileOutputStream(nombreArchivo);
+            FileOutputStream fos = new FileOutputStream("matrizDistancia.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-            oos.writeObject(matriz);
+            // Escribir las dimensiones de la matriz
+            oos.writeInt(matriz.length); // Número de filas
+            oos.writeInt(matriz[0].length); // Número de columnas
+
+            // Escribir los elementos de la matriz
+            for (int i = 0; i < matriz.length; i++) {
+                for (int j = 0; j < matriz[i].length; j++) {
+                    oos.writeDouble(matriz[i][j]);
+                }
+            }
 
             oos.close();
             fos.close();
@@ -580,10 +517,11 @@ public class Controlador {
 
     public void imprimirMatriz(double[][] matrizDistancia) {
         for (int i = 0; i < matrizDistancia.length; i++) {
+
             for (int j = 0; j < matrizDistancia[i].length; j++) {
                 System.out.printf("%.2f ", matrizDistancia[i][j]);
             }
-            System.out.println();
+            System.out.println(" ");
         }
     }
 

@@ -2,6 +2,7 @@ package ruben.eduardo.knn.avl;
 
 import cu.edu.cujae.ceis.tree.binary.BinaryTree;
 import cu.edu.cujae.ceis.tree.binary.BinaryTreeNode;
+import ruben.eduardo.knn.modelos.DistanciaAClasificacion;
 
 import java.util.ArrayList;
 
@@ -20,10 +21,10 @@ public class AvlTree<E extends Comparable<E>> extends BinaryTree<E> {
 
     public static class AvlNode<E> extends BinaryTreeNode<E> implements PrintableNode {
         public int height = 0;
+        public int count = 1; // Nuevo contador para elementos duplicados
 
         public AvlNode(E valor) {
             super(valor);
-
         }
 
         @Override
@@ -45,61 +46,63 @@ public class AvlTree<E extends Comparable<E>> extends BinaryTree<E> {
 
 
     public void insert(E valor) {
-
-        if (valor != null)
-         root = insert((AvlNode<E>) root, valor);
+        root = insert((AvlNode<E>) root, valor);
     }
 
-
     private AvlNode<E> insert(AvlNode<E> node, E valor) {
-
         if (node == null) {
             return new AvlNode<>(valor);
         }
 
-
         int cmp = valor.compareTo(node.getInfo());
-
 
         if (cmp < 0) {
             node.setLeft(insert((AvlNode<E>)node.getLeft(), valor));
-        }
-
-        else if (cmp > 0) {
+        } else if (cmp > 0) {
             node.setRight(insert((AvlNode<E>)node.getRight(), valor));
-
+        } else {
+            // Si el valor ya existe, asumimos que 'valor' es una instancia de DistanciaAClasificacion
+            // y actualizamos el contador dentro de esa instancia.
+            if (valor instanceof DistanciaAClasificacion) {
+                DistanciaAClasificacion actual = (DistanciaAClasificacion) node.getInfo();
+                // Crear una nueva instancia con el contador incrementado
+                DistanciaAClasificacion nuevo = new DistanciaAClasificacion(
+                        actual.distancia(),
+                        actual.contador() + 1
+                );
+                node.setInfo((E)nuevo); // Actualizamos la información del nodo con el nuevo valor que tiene el contador actualizado
+            }
+            return node; // Detiene la ejecución adicional para este caso
         }
 
-
+        // Actualizar la altura del nodo actual
         node.height = Math.max(height((AvlNode<E>)node.getLeft()), height((AvlNode<E>)node.getRight())) + 1;
 
+        // Reequilibrar el árbol si es necesario
+        return rebalance(node, valor);
+    }
 
+
+    private AvlNode<E> rebalance(AvlNode<E> node, E valor) {
         int balance = balance(node);
-
-
-
 
         if (balance < -1 && valor.compareTo(node.getLeft().getInfo()) < 0) {
             return rightRotate(node);
         }
 
-
         if (balance > 1 && valor.compareTo(node.getRight().getInfo()) > 0) {
             return leftRotate(node);
         }
-
 
         if (balance < -1 && valor.compareTo(node.getLeft().getInfo()) > 0) {
             node.setLeft(leftRotate((AvlNode<E>)node.getLeft()));
             return rightRotate(node);
         }
 
-
         if (balance > 1 && valor.compareTo(node.getRight().getInfo()) < 0) {
             node.setRight(rightRotate((AvlNode<E>)node.getRight()));
             return leftRotate(node);
         }
-
 
         return node;
     }

@@ -61,7 +61,7 @@
                   <Insets />
                </opaqueInsets>
             </TextArea>
-            <Button fx:id="btnClasificar1Elemnt" disable="true" layoutX="167.0" layoutY="122.0" mnemonicParsing="false" onAction="#intentarClasificar1element" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Clasificar" />
+            <Button fx:id="btnClasificar1Elemnt"  layoutX="167.0" layoutY="122.0" mnemonicParsing="false" onAction="#intentarClasificar1element" prefHeight="33.0" prefWidth="102.0" styleClass="accent" text="Clasificar" />
          </children>
       </Pane>
    </children>

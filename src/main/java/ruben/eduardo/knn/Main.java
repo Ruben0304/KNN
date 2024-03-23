@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import ruben.eduardo.knn.interfaces.ILectorFicheros;
-import ruben.eduardo.knn.services.LectorFicheros;
+import ruben.eduardo.knn.servicios.LectorFicheros;
 
 import java.io.IOException;
 

@@ -3,6 +3,20 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="\clasificado.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\datosNC.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\src\main\resources\ruben\eduardo\knn\Data\Fulbo.csv">
           <value>
             <Attribute>
@@ -17,7 +31,28 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\src\main\resources\ruben\eduardo\knn\Data\clasificado.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\src\main\resources\ruben\eduardo\knn\Data\datosC.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\src\main\resources\ruben\eduardo\knn\Data\datosNC.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\src\main\resources\ruben\eduardo\knn\Data\fulbonc.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
