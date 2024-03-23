@@ -26,16 +26,15 @@ public class ClasificadorLista extends Clasificador {
 
     @Override
     public String clasificar(LinkedList<Double> elementoNoClasificado) {
-        List<Map.Entry<String, Double>> kVecinos = obtenerVecinos(registroClasificados.getElementos(),elementoNoClasificado);
+        ArrayList<Map.Entry<String, Double>> kVecinos = obtenerVecinos(registroClasificados.getElementos(),elementoNoClasificado);
         kVecinos.sort(Map.Entry.comparingByValue());
 
-        TreeMap<String, Integer> frecuencia = new TreeMap<>();
+        Map<String, Integer> frecuencia = new HashMap<>();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++)
             frecuencia.put(kVecinos.get(i).getKey(), frecuencia.getOrDefault(kVecinos.get(i).getKey(), 0) + 1);
-        }
 
-        return frecuencia.lastEntry().getKey();
+        return Collections.max(frecuencia.entrySet(), Map.Entry.comparingByValue()).getKey();
     }
 
 

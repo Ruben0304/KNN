@@ -68,6 +68,7 @@ public abstract class Clasificador implements AnalizadorKNN, IClasificador {
     }
 
 
+    @Override
     public ConcurrentHashMap<LinkedList<Double>, String> clasificarConjunto(IRegistroNoClasificados noClasificados) {
         ConcurrentHashMap<LinkedList<Double>, String> clasificaciones = new ConcurrentHashMap<>();
         ForkJoinPool customThreadPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
