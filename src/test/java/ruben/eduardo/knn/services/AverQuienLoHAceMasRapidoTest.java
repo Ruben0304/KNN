@@ -16,12 +16,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AverQuienLoHAceMasRapidoTest {
 
-    private final ILectorFicheros c = new LectorFicheros("datosC.csv");
+    private final ILectorFicheros c = new LectorFicheros("indicadores.csv");
 
-    private final ILectorFicheros cnc = new LectorFicheros("datosNC.csv");
+    private final ILectorFicheros cnc = new LectorFicheros("acciones.csv");
     private final IRegistroNoClasificados registroNoClasificados = new DatosAClasificar(cnc.leerArchivo());
 
-    private final IRegistroClasificados registro = new DatosEntrenamiento(c.leerArchivo(4));
+    private final IRegistroClasificados registro = new DatosEntrenamiento(c.leerArchivo(3));
 
     private IClasificador clasificador;
 
@@ -94,7 +94,6 @@ class AverQuienLoHAceMasRapidoTest {
                 <LinkedList<Double>,
                         String> resultadoParaleloLinked = (ConcurrentHashMap<LinkedList<Double>, String>) clasificador.clasificarConjunto(registroNoClasificados);
 
-//assertEquals(resultadoParaleloLista,resultadoParaleloQueue);
 
         boolean sonIguales = resultadoParaleloLista.equals(resultadoParaleloAvl)
                 && resultadoParaleloAvl.equals(resultadoParaleloQueue) && resultadoParaleloLista.equals(resultadoParaleloLinked);
