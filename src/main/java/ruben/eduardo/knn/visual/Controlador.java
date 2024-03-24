@@ -1,50 +1,27 @@
 package ruben.eduardo.knn.visual;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.stage.FileChooser;
-import javafx.util.Duration;
-import ruben.eduardo.knn.clasificadores.Clasificador;
-import ruben.eduardo.knn.clasificadores.ClasificadorQeue;
+import ruben.eduardo.knn.servicios.clasificadores.Clasificador;
+import ruben.eduardo.knn.servicios.clasificadores.ClasificadorQeue;
 import ruben.eduardo.knn.interfaces.*;
 import ruben.eduardo.knn.modelos.*;
-import ruben.eduardo.knn.clasificadores.ClasificadorLista;
 import ruben.eduardo.knn.servicios.GeneradorFicheros;
 import ruben.eduardo.knn.servicios.GeneradorMatrices;
 import ruben.eduardo.knn.servicios.LectorFicheros;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ForkJoinPool;
-import java.util.stream.Collectors;
-import java.awt.Desktop;
-import java.util.stream.Stream;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
 import ruben.eduardo.knn.visual.componentes.*;
 
-
-import java.util.Optional;
 public class Controlador {
 
 
@@ -56,6 +33,7 @@ public class Controlador {
     public Button btnClasificar1Elemnt;
     public Button btnMatriz;
     public Spinner<Integer> spinnerK;
+    public ComboBox comboClasificacion;
     @FXML
     private Pane root;
     @FXML

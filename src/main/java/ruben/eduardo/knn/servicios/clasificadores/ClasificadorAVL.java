@@ -1,4 +1,4 @@
-package ruben.eduardo.knn.clasificadores;
+package ruben.eduardo.knn.servicios.clasificadores;
 
 import ruben.eduardo.knn.avl.AvlTree;
 import ruben.eduardo.knn.interfaces.IRegistroClasificados;

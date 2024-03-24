@@ -1,10 +1,10 @@
 package ruben.eduardo.knn.servicios;
 
 import org.junit.jupiter.api.Test;
-import ruben.eduardo.knn.clasificadores.ClasificadorAVL;
-import ruben.eduardo.knn.clasificadores.ClasificadorLinked;
-import ruben.eduardo.knn.clasificadores.ClasificadorLista;
-import ruben.eduardo.knn.clasificadores.ClasificadorQeue;
+import ruben.eduardo.knn.servicios.clasificadores.ClasificadorAVL;
+import ruben.eduardo.knn.servicios.clasificadores.ClasificadorLinked;
+import ruben.eduardo.knn.servicios.clasificadores.ClasificadorLista;
+import ruben.eduardo.knn.servicios.clasificadores.ClasificadorQeue;
 import ruben.eduardo.knn.interfaces.*;
 import ruben.eduardo.knn.modelos.DatosAClasificar;
 import ruben.eduardo.knn.modelos.DatosEntrenamiento;

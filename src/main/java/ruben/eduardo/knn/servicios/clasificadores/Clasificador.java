@@ -1,4 +1,4 @@
-package ruben.eduardo.knn.clasificadores;
+package ruben.eduardo.knn.servicios.clasificadores;
 
 import org.jetbrains.annotations.NotNull;
 import ruben.eduardo.knn.interfaces.AnalizadorKNN;
