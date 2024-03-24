@@ -87,6 +87,8 @@ public class Controlador {
 
     public void handleOpenFileActionArchClasific(ActionEvent event) {
         direccionArchivoClasificado = ObtenerArchivos.obtenerDireccionArchivo(event);
+        ILectorFicheros lectorFicheros = new LectorFicheros(direccionArchivoClasificado);
+        Dropdown.llenarValores(comboClasificacion,lectorFicheros);
         btnSelecArchClasificado.setDisable(true);
 
         txtAreaClasifUnEelemnt.setDisable(false);
@@ -126,7 +128,7 @@ public class Controlador {
         if (direccionArchivoClasificado != null) {
             LectorFicheros lectorFicheros = new LectorFicheros(direccionArchivoClasificado);
 
-            int posicionClasif = lectorFicheros.obtenerPosicionClasificacion();
+            int posicionClasif = Dropdown.obtenerPosSeleccionada(comboClasificacion,lectorFicheros);
             registroClasificados = new DatosEntrenamiento(lectorFicheros.leerArchivo(posicionClasif));
             clasificador = new ClasificadorQeue(registroClasificados);
 

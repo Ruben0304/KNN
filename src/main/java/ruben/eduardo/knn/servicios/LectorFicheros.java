@@ -81,6 +81,7 @@ public class LectorFicheros implements ILectorFicheros {
         return encabezados;
     }
 
+    @Override
     public int obtenerPosicionClasificacion() {
         try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
             String linea;

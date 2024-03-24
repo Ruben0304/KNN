@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="root" maxHeight="-Infinity" maxWidth="1521.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1013.0" style="-fx-background-color: #0B0B0C;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ruben.eduardo.knn.visual.Controlador">
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="1521.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1013.0" style="-fx-background-color: #0B0B0C;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ruben.eduardo.knn.visual.Controlador">
    <children>
       <Pane layoutX="80.0" layoutY="267.0" prefHeight="465.0" prefWidth="231.0" style="-fx-background-color: #1C1C1E; -fx-border-radius: 10;" styleClass="border-default">
          <children>
@@ -28,7 +28,7 @@
             <Label layoutX="29.0" layoutY="221.0" prefHeight="25.0" prefWidth="83.0" text="Valor de K " />
             <Spinner fx:id="spinnerK" layoutX="21.0" layoutY="259.0" styleClass="arrows-on-right-horizontal" />
             <Button fx:id="btnMatriz1" disable="true" layoutX="111.0" layoutY="384.0" mnemonicParsing="false" onAction="#generarMatrizDistancia" prefHeight="33.0" prefWidth="56.0" styleClass="success" text="Ver" />
-            <ComboBox fx:id="comboClasificacion" layoutX="22.0" layoutY="159.0" prefHeight="33.0" prefWidth="181.0" />
+            <ComboBox fx:id="comboClasificacion" layoutX="22.0" layoutY="159.0" prefHeight="33.0" prefWidth="181.0" promptText="Seleccionar" />
             <Label layoutX="27.0" layoutY="123.0" prefHeight="25.0" prefWidth="124.0" text="Atributo a clasificar" />
          </children>
       </Pane>

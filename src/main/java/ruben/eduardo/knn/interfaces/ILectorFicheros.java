@@ -10,4 +10,6 @@ public interface ILectorFicheros {
     LinkedList<LinkedList<Double>> leerArchivo();
 
     ArrayList<String> leerEncabezado();
+
+    int obtenerPosicionClasificacion();
 }
