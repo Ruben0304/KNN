@@ -16,11 +16,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        ILectorFicheros c = new LectorFicheros("D:/Proyectos/Java/Escuela/KNN/src/main/resources/ruben/eduardo/knn/Data/indicadores.csv");
-//        Bolsa b = new Bolsa();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("KNN");
+
 
         scene.getStylesheets().add(Main.class.getResource("assets/cupertino-dark.css").toString());
         scene.getStylesheets().add(Main.class.getResource("assets/Personalizado.css").toString());
@@ -35,17 +34,12 @@ public class Main extends Application {
         // Desactivar el redimensionamiento
         stage.setResizable(false);
 
-        // Mostrar la ventana
-
-
         // Obtener las dimensiones de la pantalla
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
         // Calcular la posición central
         stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
-        // Obtener el controlador y llamar al método para agregar datos al gráfico
-        // Asegúrate de que este método exista en tu controlador
         stage.show();
     }
 
