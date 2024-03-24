@@ -13,17 +13,17 @@ public class DatosPrueba {
         noClasificados = new LinkedList<>();
         clasificados = new LinkedList<>();
       Faker faker = new Faker();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 50; i++) {
             double d = faker.number().randomDouble(1,20,50);
             clasificados.addLast(new DatoPrueba(faker.number().randomDouble(1,20,50),faker.number().randomDouble(1,20,50),"C1"));
         }
 
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 50; i++) {
             double d = faker.number().randomDouble(1,-15,15);
             clasificados.addLast(new DatoPrueba(faker.number().randomDouble(1,-15,15),faker.number().randomDouble(1,-15,15),"C2"));
         }
 
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 50; i++) {
             double d = faker.number().randomDouble(1,-20,-50);
             clasificados.addLast(new DatoPrueba(faker.number().randomDouble(1,-20,-50),faker.number().randomDouble(1,-20,-50),"C3"));
         }
